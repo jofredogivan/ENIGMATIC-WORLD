@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmatic World - Fase 6: Séculos XX e XXI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container game-screen">
+        <h2 id="greeting"></h2>
+        
+        <div id="story-intro">
+            <p id="descricao"></p>
+            <button id="startPhaseBtn" class="next-button">Começar Enigmas</button>
+        </div>
+
+        <div id="questionArea" class="hidden">
+            <p class="question-count"><span id="current-question-num"></span>/<span id="total-questions-num"></span></p>
+            <h3>🔎 Enigma:</h3>
+            <p id="pergunta"></p>
+            <div id="opcoes" class="options-grid"></div>
+            <div id="feedback" class="feedback-message"></div>
+        </div>
+    </div>
+
+    <audio id="correctSound">
+        <source src="assets/sound_correct.mp3" type="audio/mpeg">
+        <source src="assets/sound_correct.ogg" type="audio/ogg">
+    </audio>
+    <audio id="incorrectSound">
+        <source src="assets/sound_incorrect.mp3" type="audio/mpeg">
+        <source src="assets/sound_incorrect.ogg" type="audio/ogg">
+    </audio>
+    
+    <script src="fase6.js"></script>
+</body>
+</html>
