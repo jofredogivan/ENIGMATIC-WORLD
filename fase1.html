@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Enigmatic World - Início da Aventura</title>
-    <link href="style.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmatic World - Fase 1: Egito Antigo</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container start-screen">
-        <h1 id="gameTitle">🌍 ENIGMATIC WORLD</h1>
-        <p>Prepare-se, explorador. A história espera por você!</p>
+    <div class="container game-screen">
+        <h2 id="greeting"></h2>
         
-        <div class="input-group">
-            <input type="text" id="playerName" placeholder="Digite seu nome lendário..." aria-label="Digite seu nome"/>
-            <button id="startGameBtn">Iniciar Aventura</button>
+        <div id="story-intro">
+            <p id="descricao"></p>
+            <button id="startPhaseBtn" class="next-button">Começar Enigmas</button>
         </div>
 
-        <div class="audio-controls">
-            <button id="toggleMusicBtn">🎶 Música: Ligar</button>
-            <audio id="backgroundMusic" loop>
-                <source src="assets/music_theme.mp3" type="audio/mpeg">
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
+        <div id="questionArea" class="hidden">
+            <p class="question-count"><span id="current-question-num"></span>/<span id="total-questions-num"></span></p>
+            <h3>🔎 Enigma:</h3>
+            <p id="pergunta"></p>
+            <div id="opcoes" class="options-grid"></div>
+            <div id="feedback" class="feedback-message"></div>
         </div>
-        
-        <p class="small-text">Sua jornada através das eras está prestes a começar.</p>
     </div>
 
-    <script src="script.js"></script>
+    <audio id="correctSound">
+        <source src="assets/sound_correct.mp3" type="audio/mpeg">
+        </audio>
+    <audio id="incorrectSound">
+        <source src="assets/sound_incorrect.mp3" type="audio/mpeg">
+        </audio>
+    
+    <script src="fase1.js"></script>
 </body>
 </html>
