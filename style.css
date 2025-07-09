@@ -1,33 +1,254 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Enigmatic World - Início da Aventura</title>
-    <link href="style.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="container start-screen">
-        <h1 id="gameTitle">🌍 ENIGMATIC WORLD</h1>
-        <p>Prepare-se, explorador. A história espera por você!</p>
-        
-        <div class="input-group">
-            <input type="text" id="playerName" placeholder="Digite seu nome lendário..." aria-label="Digite seu nome"/>
-            <button id="startGameBtn">Iniciar Aventura</button>
-        </div>
+/* style.css - Estilos Globais de Pergaminho e Enigmático */
 
-        <div class="audio-controls">
-            <button id="toggleMusicBtn">🎶 Música: Ligar</button>
-            <audio id="backgroundMusic" loop>
-                <source src="assets/music_theme.mp3" type="audio/mpeg">
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
-        </div>
-        
-        <p class="small-text">Sua jornada através das eras está prestes a começar.</p>
-    </div>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', serif; /* Fonte clássica */
+    
+    /* Imagem de fundo para o efeito de pergaminho/mapa */
+    background-image: url('https://i.imgur.com/gK2J9iZ.jpg'); /* Exemplo: Pergaminho sutil. Você pode substituir! */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #3b2f21; /* Cor de fallback */
 
-    <script src="script.js"></script>
-</body>
-</html>
+    color: #4b3e2a; /* Cor de texto que simula tinta antiga */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility; /* Melhor renderização de texto */
+}
+
+.container {
+    background: rgba(245, 245, 220, 0.95); /* Bege claro, quase branco, ligeiramente transparente */
+    padding: 35px 40px;
+    border-radius: 12px;
+    text-align: center;
+    width: 95%;
+    max-width: 550px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 2px solid #a08c6a; /* Borda que remete ao pergaminho */
+    box-sizing: border-box;
+
+    /* Animação de fade-in para o container */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInContainer 1s forwards ease-out;
+}
+
+@keyframes fadeInContainer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1, h2, h3 {
+    font-family: 'Cinzel Decorative', cursive; /* Fonte enigmática para títulos */
+    color: #6a4a2b; /* Cor mais escura para títulos */
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 2.8em;
+    color: #926e3f; /* Tom mais dourado para o título principal */
+}
+
+h2 {
+    font-size: 2.2em;
+}
+
+h3 {
+    font-size: 1.8em;
+    color: #8c6e4e; /* Cor ligeiramente diferente para o título do enigma */
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: #4b3e2a;
+}
+
+.small-text {
+    font-size: 0.9em;
+    color: #6d6150;
+    margin-top: 20px;
+}
+
+/* --- Input e Botão de Início (Tela Inicial) --- */
+.input-group {
+    margin-bottom: 30px;
+}
+
+input[type="text"] {
+    width: calc(80% - 30px); /* Ajuste para padding */
+    padding: 12px 15px;
+    margin-bottom: 20px; /* Espaçamento entre input e botão */
+    font-size: 1.1em;
+    border-radius: 8px;
+    border: 1px solid #a08c6a;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #4b3e2a;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+input[type="text"]::placeholder {
+    color: #887a68;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #e0b400;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 8px rgba(224, 180, 0, 0.4);
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #e0b400; /* Amarelo dourado */
+    border: 2px solid #b38e00;
+    color: #4b3e2a;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 5px; /* Para múltiplos botões ou ajuste */
+}
+
+button:hover {
+    background-color: #f0c800;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* --- Classes de Controle de Visibilidade --- */
+.hidden {
+    display: none !important;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* --- Estilos para as Telas de Fase (compartilhados) --- */
+.question-count {
+    font-size: 1.1em;
+    color: #8c6e4e;
+    margin-bottom: 10px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Uma coluna por padrão */
+    gap: 15px; /* Espaçamento entre os botões */
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 500px) {
+    .options-grid {
+        grid-template-columns: 1fr 1fr; /* Duas colunas para telas maiores */
+    }
+}
+
+.option-btn {
+    width: 100%;
+    min-height: 50px;
+    font-size: 1.05em;
+    white-space: normal;
+    text-align: center;
+}
+
+.next-button {
+    margin-top: 25px;
+    background-color: #6a4a2b; /* Cor mais escura para este botão */
+    color: #fff;
+    border: 2px solid #4b3e2a;
+}
+
+.next-button:hover {
+    background-color: #8c6e4e;
+}
+
+/* Feedback de resposta */
+.feedback-message {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+    min-height: 1.5em;
+}
+
+.feedback-correct {
+    color: #4CAF50; /* Verde */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-incorrect {
+    color: #F44336; /* Vermelho */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para destacar a resposta correta/incorreta nos botões */
+.correct-answer {
+    background-color: #79a87d !important;
+    border-color: #4CAF50 !important;
+    color: #fff !important;
+}
+
+.incorrect-answer {
+    background-color: #e57373 !important;
+    border-color: #F44336 !important;
+    color: #fff !important;
+}
+
+/* --- Estilos da Tela Final --- */
+.end-screen h2 {
+    color: #926e3f;
+    margin-bottom: 20px;
+}
+
+.final-score {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #e0b400; /* Dourado */
+    margin-bottom: 30px;
+}
+
+/* Estilos para Controles de Áudio */
+.audio-controls {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.audio-controls button {
+    background-color: #8c6e4e; /* Tom mais escuro de pergaminho */
+    color: #fff;
+    border: 2px solid #6a4a2b;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.audio-controls button:hover {
+    background-color: #a08c6a;
+    transform: translateY(-1px);
+}
