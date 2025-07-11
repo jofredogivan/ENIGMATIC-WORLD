@@ -22,6 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     restartGameBtn.addEventListener("click", () => {
         localStorage.clear(); 
-        window.location.href = "index.html";
+        // --- IMPORTANTE: NAVEGAÇÃO AJUSTADA PARA IFRAME ---
+        // Diz ao pai (main.html) para carregar o index.html no iframe para recomeçar
+        if (window.parent && window.parent.document.getElementById('gameFrame')) {
+            window.parent.document.getElementById('gameFrame').src = "index.html";
+        } else {
+            // Fallback
+            window.location.href = "index.html";
+        }
     });
 });
