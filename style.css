@@ -1,254 +1,312 @@
-/* style.css - Estilos Globais de Pergaminho e Enigmático */
+/* style.css */
 
-body {
+/* Reset básico para remover margens e preenchimentos padrão do navegador */
+body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Times New Roman', serif; /* Fonte clássica */
-    
-    /* Imagem de fundo para o efeito de pergaminho/mapa */
-    background-image: url('https://i.imgur.com/gK2J9iZ.jpg'); /* Exemplo: Pergaminho sutil. Você pode substituir! */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-color: #3b2f21; /* Cor de fallback */
-
-    color: #4b3e2a; /* Cor de texto que simula tinta antiga */
-    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Evita barras de rolagem */
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #d4a974; /* Cor de fundo padrão */
+    display: flex; /* Para centralizar o main.game-container */
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-    text-rendering: optimizeLegibility; /* Melhor renderização de texto */
+    position: relative; /* Para posicionar o botão de música */
 }
 
-.container {
-    background: rgba(245, 245, 220, 0.95); /* Bege claro, quase branco, ligeiramente transparente */
-    padding: 35px 40px;
-    border-radius: 12px;
+/* Estilo para o contêiner principal do jogo */
+.game-container {
+    background-color: #f8f0e3; /* Um tom mais claro para o "papel" */
+    border: 5px solid #8B4513; /* Borda marrom, como um livro antigo */
+    border-radius: 15px;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.4); /* Sombra para dar profundidade */
+    padding: 30px;
     text-align: center;
-    width: 95%;
-    max-width: 550px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    border: 2px solid #a08c6a; /* Borda que remete ao pergaminho */
-    box-sizing: border-box;
-
-    /* Animação de fade-in para o container */
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInContainer 1s forwards ease-out;
+    max-width: 800px; /* Largura máxima para o contêiner do jogo */
+    width: 90%; /* Adapta-se à largura da tela */
+    height: 90vh; /* Ocupa a maior parte da altura da viewport */
+    display: flex; /* Para o iframe ocupar 100% */
+    flex-direction: column; /* Para o iframe ocupar 100% */
+    justify-content: center; /* Para o iframe ocupar 100% */
+    align-items: center; /* Para o iframe ocupar 100% */
+    position: relative; /* Para garantir que o iframe fique sobre ele */
 }
 
-@keyframes fadeInContainer {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Estilo para o iframe dentro do game-container */
+/* Isso é crucial para cobrir o conteúdo de main.html e garantir que o iframe seja responsivo */
+#gameFrame {
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove a borda padrão do iframe */
+    background-color: white; /* Adiciona um fundo sólido ao iframe para cobrir o que está por baixo */
+    display: block; /* Garante que não há espaços indesejados */
 }
 
-h1, h2, h3 {
-    font-family: 'Cinzel Decorative', cursive; /* Fonte enigmática para títulos */
-    color: #6a4a2b; /* Cor mais escura para títulos */
+
+/* --- Estilos para a Tela de Início (index.html) --- */
+.intro-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Garante que o conteúdo da intro ocupe todo o iframe */
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-    font-size: 2.8em;
-    color: #926e3f; /* Tom mais dourado para o título principal */
-}
-
-h2 {
-    font-size: 2.2em;
-}
-
-h3 {
-    font-size: 1.8em;
-    color: #8c6e4e; /* Cor ligeiramente diferente para o título do enigma */
-}
-
-p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 25px;
-    color: #4b3e2a;
-}
-
-.small-text {
-    font-size: 0.9em;
-    color: #6d6150;
-    margin-top: 20px;
-}
-
-/* --- Input e Botão de Início (Tela Inicial) --- */
-.input-group {
-    margin-bottom: 30px;
-}
-
-input[type="text"] {
-    width: calc(80% - 30px); /* Ajuste para padding */
-    padding: 12px 15px;
-    margin-bottom: 20px; /* Espaçamento entre input e botão */
-    font-size: 1.1em;
-    border-radius: 8px;
-    border: 1px solid #a08c6a;
-    background-color: rgba(255, 255, 255, 0.7);
-    color: #4b3e2a;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-input[type="text"]::placeholder {
-    color: #887a68;
-}
-
-input[type="text"]:focus {
-    outline: none;
-    border-color: #e0b400;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 8px rgba(224, 180, 0, 0.4);
-}
-
-button {
-    padding: 12px 25px;
-    background-color: #e0b400; /* Amarelo dourado */
-    border: 2px solid #b38e00;
-    color: #4b3e2a;
-    font-weight: bold;
-    font-size: 1.1em;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    margin: 5px; /* Para múltiplos botões ou ajuste */
-}
-
-button:hover {
-    background-color: #f0c800;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-button:disabled {
-    background-color: #ccc;
-    color: #666;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-/* --- Classes de Controle de Visibilidade --- */
-.hidden {
-    display: none !important;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-/* --- Estilos para as Telas de Fase (compartilhados) --- */
-.question-count {
-    font-size: 1.1em;
-    color: #8c6e4e;
+.globe-icon {
+    width: 80px; /* Tamanho maior para o globo */
+    height: 80px;
     margin-bottom: 10px;
 }
 
-.options-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* Uma coluna por padrão */
-    gap: 15px; /* Espaçamento entre os botões */
-    margin-top: 30px;
+.intro-container h1 {
+    font-family: 'Cinzel Decorative', cursive; /* Fonte mais decorativa, se disponível */
+    font-size: 3em;
+    color: #4a2c0f; /* Marrom escuro para o título */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 0;
+}
+
+.intro-container p {
+    font-size: 1.2em;
+    color: #6d4b2e;
     margin-bottom: 20px;
 }
 
-@media (min-width: 500px) {
-    .options-grid {
-        grid-template-columns: 1fr 1fr; /* Duas colunas para telas maiores */
-    }
+.input-area input {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    font-size: 1em;
+    width: 200px;
+}
+
+.input-area button, .start-button {
+    padding: 12px 25px;
+    background-color: #e0ac4e; /* Amarelo ouro */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.input-area button:hover, .start-button:hover {
+    background-color: #c99846;
+    transform: translateY(-2px);
+}
+
+.footer-text {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #a07d57;
+}
+
+/* --- Estilos para o Botão de Música (no main.html) --- */
+.music-toggle-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #8B4513; /* Marrom escuro */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.music-toggle-button:hover {
+    background-color: #6f370f;
+}
+
+
+/* --- Estilos para as Fases de Quiz (faseX.html) --- */
+.story-intro-container, .question-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Garante que a fase ocupe todo o iframe */
+    width: 100%;
+}
+
+.story-intro-container h2 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 2.5em;
+    color: #4a2c0f;
+    margin-bottom: 20px;
+}
+
+.story-intro-container p {
+    font-size: 1.1em;
+    color: #6d4b2e;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.question-area h3 {
+    font-size: 1.5em;
+    color: #4a2c0f;
+    margin-bottom: 20px;
+}
+
+.question-status {
+    font-size: 0.9em;
+    color: #a07d57;
+    margin-bottom: 15px;
+}
+
+.enigma-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.8em;
+    color: #8B4513;
+    margin-bottom: 25px;
+}
+
+.pergunta-text {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 30px;
+    max-width: 700px;
+}
+
+.opcoes-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    gap: 15px; /* Espaçamento entre os botões */
+    margin-bottom: 20px;
+    max-width: 600px;
+    width: 100%;
 }
 
 .option-btn {
-    width: 100%;
-    min-height: 50px;
-    font-size: 1.05em;
-    white-space: normal;
-    text-align: center;
+    padding: 15px 20px;
+    background-color: #e0ac4e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.next-button {
-    margin-top: 25px;
-    background-color: #6a4a2b; /* Cor mais escura para este botão */
-    color: #fff;
-    border: 2px solid #4b3e2a;
+.option-btn:hover:not(:disabled) {
+    background-color: #c99846;
+    transform: translateY(-2px);
 }
 
-.next-button:hover {
-    background-color: #8c6e4e;
+.option-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
-/* Feedback de resposta */
-.feedback-message {
-    font-size: 1.2em;
+.option-btn.correct-answer {
+    background-color: #4CAF50; /* Verde */
+}
+
+.option-btn.incorrect-answer {
+    background-color: #f44336; /* Vermelho */
+}
+
+.feedback-text {
+    margin-top: 15px;
+    font-size: 1.1em;
     font-weight: bold;
-    margin-top: 20px;
-    min-height: 1.5em;
 }
 
 .feedback-correct {
-    color: #4CAF50; /* Verde */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    color: #4CAF50;
 }
 
 .feedback-incorrect {
-    color: #F44336; /* Vermelho */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    color: #f44336;
 }
 
-/* Estilo para destacar a resposta correta/incorreta nos botões */
-.correct-answer {
-    background-color: #79a87d !important;
-    border-color: #4CAF50 !important;
-    color: #fff !important;
+.next-button {
+    padding: 12px 25px;
+    background-color: #8B4513; /* Marrom para o próximo */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-.incorrect-answer {
-    background-color: #e57373 !important;
-    border-color: #F44336 !important;
-    color: #fff !important;
+.next-button:hover {
+    background-color: #6f370f;
+    transform: translateY(-2px);
 }
 
-/* --- Estilos da Tela Final --- */
-.end-screen h2 {
-    color: #926e3f;
+/* --- Estilos para a Tela Final (fase-final.html) --- */
+.final-screen-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.final-screen-container h2 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 2.8em;
+    color: #4a2c0f;
     margin-bottom: 20px;
 }
 
 .final-score {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #e0b400; /* Dourado */
-    margin-bottom: 30px;
-}
-
-/* Estilos para Controles de Áudio */
-.audio-controls {
-    margin-top: 25px;
+    font-size: 1.8em;
+    color: #8B4513;
     margin-bottom: 15px;
 }
 
-.audio-controls button {
-    background-color: #8c6e4e; /* Tom mais escuro de pergaminho */
-    color: #fff;
-    border: 2px solid #6a4a2b;
-    padding: 10px 20px;
-    font-size: 1em;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+.final-message {
+    font-size: 1.2em;
+    color: #6d4b2e;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 30px;
 }
 
-.audio-controls button:hover {
-    background-color: #a08c6a;
-    transform: translateY(-1px);
+.restart-button {
+    padding: 15px 30px;
+    background-color: #e0ac4e;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.restart-button:hover {
+    background-color: #c99846;
+    transform: translateY(-3px);
+}
+
+
+/* --- Utilitários --- */
+.hidden {
+    display: none;
 }
