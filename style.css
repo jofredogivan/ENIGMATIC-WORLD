@@ -8,30 +8,41 @@ body, html {
     height: 100%;
     overflow: hidden; /* Evita barras de rolagem */
     font-family: 'Times New Roman', Times, serif;
-    background-color: #d4a974; /* Cor de fundo padrão */
-    display: flex; /* Para centralizar o main.game-container */
+    background-color: #d4a974; /* Cor de fundo padrão do body (fora do pergaminho) */
+    display: flex; /* Para centralizar o game-wrapper */
     justify-content: center;
     align-items: center;
-    position: relative; /* Para posicionar o botão de música */
 }
 
-/* Estilo para o contêiner principal do jogo */
-.game-container {
+/* Novo wrapper para aplicar o estilo de pergaminho ao redor de tudo */
+.game-wrapper {
     background-color: #f8f0e3; /* Um tom mais claro para o "papel" */
     border: 5px solid #8B4513; /* Borda marrom, como um livro antigo */
     border-radius: 15px;
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.4); /* Sombra para dar profundidade */
-    padding: 30px;
+    padding: 20px; /* Padding ao redor do game-container e do botão de música */
     text-align: center;
-    max-width: 800px; /* Largura máxima para o contêiner do jogo */
+    max-width: 800px; /* Largura máxima para o wrapper do jogo */
     width: 90%; /* Adapta-se à largura da tela */
     height: 90vh; /* Ocupa a maior parte da altura da viewport */
-    display: flex; /* Para o iframe ocupar 100% */
-    flex-direction: column; /* Para o iframe ocupar 100% */
-    justify-content: center; /* Para o iframe ocupar 100% */
-    align-items: center; /* Para o iframe ocupar 100% */
-    position: relative; /* Para garantir que o iframe fique sobre ele */
+    display: flex; /* Para organizar o container e o botão */
+    flex-direction: column;
+    justify-content: space-between; /* Espaçamento entre o game-container e o botão */
+    align-items: center;
+    position: relative; /* Para posicionar o botão de música dentro dele */
 }
+
+/* O game-container agora é onde o iframe fica */
+.game-container {
+    width: 100%; /* Ocupa a largura total do game-wrapper */
+    flex-grow: 1; /* Permite que ele cresça e ocupe o espaço disponível */
+    display: flex; /* Para o iframe ocupar 100% */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Garante que o iframe não vaze */
+}
+
 
 /* Estilo para o iframe dentro do game-container */
 /* Isso é crucial para cobrir o conteúdo de main.html e garantir que o iframe seja responsivo */
@@ -39,12 +50,32 @@ body, html {
     width: 100%;
     height: 100%;
     border: none; /* Remove a borda padrão do iframe */
-    background-color: white; /* Adiciona um fundo sólido ao iframe para cobrir o que está por baixo */
+    /* background-color: white; /* Já está inline no HTML, mantendo para referência */
     display: block; /* Garante que não há espaços indesejados */
 }
 
 
-/* --- Estilos para a Tela de Início (index.html) --- */
+/* --- Estilos para o Botão de Música (no main.html) --- */
+.music-toggle-button {
+    /* Posicionamento relativo ao .game-wrapper */
+    margin-top: 20px; /* Espaço entre o iframe e o botão */
+    padding: 10px 20px;
+    background-color: #8B4513; /* Marrom escuro */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.music-toggle-button:hover {
+    background-color: #6f370f;
+}
+
+
+/* --- Estilos para a Tela de Início (index.html) - Mantidos do seu original --- */
 .intro-container {
     display: flex;
     flex-direction: column;
@@ -52,6 +83,7 @@ body, html {
     align-items: center;
     height: 100%; /* Garante que o conteúdo da intro ocupe todo o iframe */
     width: 100%;
+    /* Removi padding e background-color daqui, pois agora o game-wrapper e game-container já fornecem o estilo de pergaminho */
 }
 
 .header {
@@ -112,28 +144,6 @@ body, html {
     font-size: 0.9em;
     color: #a07d57;
 }
-
-/* --- Estilos para o Botão de Música (no main.html) --- */
-.music-toggle-button {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    background-color: #8B4513; /* Marrom escuro */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.music-toggle-button:hover {
-    background-color: #6f370f;
-}
-
 
 /* --- Estilos para as Fases de Quiz (faseX.html) --- */
 .story-intro-container, .question-area {
