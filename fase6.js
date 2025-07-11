@@ -123,11 +123,6 @@ function playIncorrectSound() {
 
 // --- Funções de Lógica da Fase ---
 document.addEventListener("DOMContentLoaded", () => {
-    // Assegura que o jogador e os pontos totais são carregados
-    playerName = localStorage.getItem("playerName") || "Explorador";
-    totalPoints = parseInt(localStorage.getItem("totalPoints") || "0");
-    isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; // Atualiza a preferência de música
-
     greetingElement.innerText = `Saudações, ${playerName}... Você chegou aos Séculos XX e XXI!`;
     descriptionElement.innerText = "Guerras mundiais, avanços tecnológicos e a era digital. O mundo moderno aguarda sua compreensão. Prepare-se para o desafio final!";
 
@@ -217,13 +212,5 @@ function finishGame() {
     totalPoints += phaseScore;
     localStorage.setItem("totalPoints", totalPoints);
     localStorage.setItem("currentPhase", "final"); // Marca que o jogo terminou
-
-    // --- IMPORTANTE: NAVEGAÇÃO AJUSTADA PARA IFRAME ---
-    // Diz ao pai (main.html) para carregar a tela final no iframe
-    if (window.parent && window.parent.document.getElementById('gameFrame')) {
-        window.parent.document.getElementById('gameFrame').src = "fase-final.html";
-    } else {
-        // Fallback para caso não esteja em um iframe
-        window.location.href = "fase-final.html";
-    }
+    window.location.href = "fase-final.html";
 }
