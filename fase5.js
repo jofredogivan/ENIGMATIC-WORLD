@@ -57,7 +57,7 @@ const allPhase5Questions = [
         alternativas: ["Automóvel", "Telefone", "Computador"]
     },
     {
-        texto: "Qual filósofo iluminista defendeu a separaçã o dos poderes (legislativo, executivo e judiciário)?",
+        texto: "Qual filósofo iluminista defendeu a separação dos poderes (legislativo, executivo e judiciário)?",
         correta: "Montesquieu",
         alternativas: ["Voltaire", "Rousseau", "Diderot"]
     },
@@ -118,11 +118,6 @@ function playIncorrectSound() {
 
 // --- Funções de Lógica da Fase ---
 document.addEventListener("DOMContentLoaded", () => {
-    // Assegura que o jogador e os pontos totais são carregados
-    playerName = localStorage.getItem("playerName") || "Explorador";
-    totalPoints = parseInt(localStorage.getItem("totalPoints") || "0");
-    isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; // Atualiza a preferência de música
-
     greetingElement.innerText = `Saudações, ${playerName}... Você está nas Revoluções e no Iluminismo!`;
     descriptionElement.innerText = "Uma era de ideias que transformaram impérios e mudaram o curso da humanidade. A razão é sua guia neste tempo de profundas mudanças.";
 
@@ -191,7 +186,6 @@ function checkAnswer(selectedOption, correctAnswer, clickedButton) {
     nextActionButton.classList.remove("hidden");
     
     if (currentQuestionIndex === currentQuestionsForPhase.length - 1) {
-        // Esta condição só será verdadeira para fase6.js no final
         if (window.location.pathname.includes('fase6.html')) { 
             nextActionButton.textContent = "Ver Resultados Finais";
             nextActionButton.onclick = finishGame;
@@ -207,7 +201,6 @@ function nextQuestion() {
     if (currentQuestionIndex < currentQuestionsForPhase.length) {
         displayQuestion();
     } else {
-        // Esta condição só será verdadeira para fase6.js no final
         if (window.location.pathname.includes('fase6.html')) {
             finishGame();
         } else {
@@ -216,26 +209,9 @@ function nextQuestion() {
     }
 }
 
-// Para que a função advanceToNextPhase saiba qual é a fase atual,
-// precisamos extrair o número da fase do nome do arquivo (ex: fase5.js -> 5)
-const pathParts = window.location.pathname.split('/');
-const currentFileName = pathParts[pathParts.length - 1]; // ex: "fase5.html"
-const currentPhaseNumber = parseInt(currentFileName.replace('fase', '').replace('.html', ''));
-
 function advanceToNextPhase() {
     totalPoints += phaseScore;
     localStorage.setItem("totalPoints", totalPoints);
-    const nextPhaseNumber = currentPhaseNumber + 1; 
-    localStorage.setItem("currentPhase", nextPhaseNumber); 
-
-    // --- IMPORTANTE: NAVEGAÇÃO AJUSTADA PARA IFRAME ---
-    // Diz ao pai (main.html) para carregar a próxima fase no iframe
-    if (window.parent && window.parent.document.getElementById('gameFrame')) {
-        window.parent.document.getElementById('gameFrame').src = `fase${nextPhaseNumber}.html`;
-    } else {
-        // Fallback para caso não esteja em um iframe (útil para testes diretos)
-        window.location.href = `fase${nextPhaseNumber}.html`;
-    }
+    localStorage.setItem("currentPhase", 6); 
+    window.location.href = `fase6.html`; 
 }
-
-// A função finishGame é específica da fase6.js, não deve estar aqui.
