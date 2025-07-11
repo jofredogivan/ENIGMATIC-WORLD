@@ -1,62 +1,40 @@
-// script.js - Lógica da Tela de Boas-Vindas
+// script.js - Lógica da Tela de Início
 
 document.addEventListener("DOMContentLoaded", () => {
-    const playerNameInput = document.getElementById("playerName");
     const startGameBtn = document.getElementById("startGameBtn");
+    const playerNameInput = document.getElementById("playerNameInput");
 
-    // Tenta carregar o nome do jogador se já existia
-    const storedPlayerName = localStorage.getItem("playerName");
-    if (storedPlayerName) {
-        playerNameInput.value = storedPlayerName;
-    }
+    // Limpa totalPoints e currentPhase ao iniciar um novo jogo
+    localStorage.removeItem("totalPoints");
+    localStorage.removeItem("currentPhase");
 
     startGameBtn.addEventListener("click", () => {
-        const name = playerNameInput.value.trim();
-        if (name) {
-            localStorage.setItem("playerName", name);
+        const playerName = playerNameInput.value.trim();
+
+        if (playerName) {
+            localStorage.setItem("playerName", playerName);
             localStorage.setItem("totalPoints", "0");
-            localStorage.setItem("currentPhase", "1"); // Inicia na Fase 1
+            localStorage.setItem("currentPhase", "1"); // Define a fase inicial como 1
 
             // --- IMPORTANTE: NAVEGAÇÃO AJUSTADA PARA IFRAME ---
-            // Diz ao pai (main.html) para carregar fase1.html no iframe
+            // Diz ao PARENT (main.html) para carregar a fase1.html no iframe
             if (window.parent && window.parent.document.getElementById('gameFrame')) {
-                window.parent.document.getElementById('gameFrame').src = 'fase1.html';
+                window.parent.document.getElementById('gameFrame').src = "fase1.html";
             } else {
-                // Fallback para caso não esteja em um iframe (ex: testando diretamente index.html)
-                window.location.href = 'fase1.html';
+                // Fallback para caso não esteja em um iframe (útil para testes diretos)
+                window.location.href = "fase1.html";
             }
         } else {
             alert("Por favor, digite seu nome para iniciar a aventura!");
         }
     });
+});
 
-    // --- REMOVIDO: Lógica de controle de música, agora no main.html ---
-    // const backgroundMusic = document.getElementById("backgroundMusic");
-    // const toggleMusicBtn = document.getElementById("toggleMusicBtn");
-    // let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
-
-    // // Configuração inicial do botão de música
-    // toggleMusicBtn.textContent = isMusicPlaying ? "🎶 Música: Desligar" : "🎶 Música: Ligar";
-    // if (isMusicPlaying) {
-    //     backgroundMusic.volume = 0.4;
-    //     backgroundMusic.play().catch(e => console.log("Autoplay bloqueado:", e));
-    // }
-
-    // // Listener para o botão de toggle da música
-    // toggleMusicBtn.addEventListener("click", () => {
-    //     if (backgroundMusic.paused) {
-    //         backgroundMusic.play().then(() => {
-    //             isMusicPlaying = true;
-    //             toggleMusicBtn.textContent = "🎶 Música: Desligar";
-    //         }).catch(e => {
-    //             console.log("Erro ao tocar música:", e);
-    //             alert("O navegador pode ter bloqueado a reprodução automática. Por favor, interaja com a página.");
-    //         });
-    //     } else {
-    //         backgroundMusic.pause();
-    //         isMusicPlaying = false;
-    //         toggleMusicBtn.textContent = "🎶 Música: Ligar";
-    //     }
-    //     localStorage.setItem("isMusicPlaying", isMusicPlaying);
-    // });
+// Listener para receber o estado da música do PARENT (main.html)
+window.addEventListener('message', (event) => {
+    // Garante que a mensagem vem do parent e tem o tipo correto
+    if (event.source === window.parent && event.data && event.data.type === 'musicState') {
+        localStorage.setItem("isMusicPlaying", event.data.isPlaying);
+        // Não precisamos fazer mais nada aqui, pois o main.html já lida com a reprodução
+    }
 });
