@@ -1,4 +1,4 @@
-/* style.css - Estilo Pergaminho Mobile-first */
+/* style.css - Estilo Pergaminho Mobile-first com Botão Garantido */
 
 /* Importação de fontes */
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Open+Sans:wght@400;700&display=swap');
@@ -26,6 +26,7 @@ body, html {
     height: 100%;
     overflow: hidden; /* Garante que não haja barras de rolagem */
     font-family: 'Open Sans', sans-serif;
+    /* Certifique-se que 'assets/parchment_texture.jpg' existe e está no caminho correto */
     background: url('assets/parchment_texture.jpg') repeat; /* Textura de pergaminho para o fundo */
     background-size: cover; /* Garante que cubra a área */
     display: flex;
@@ -375,8 +376,8 @@ body, html {
 /* Media Queries para Responsividade (desktop) */
 @media (min-width: 768px) {
     .app-container {
-        max-width: 700px; /* Largura maior para desktop */
-        height: 85vh; /* Ocupa um pouco menos da altura total */
+        max-width: 700px;
+        height: 85vh;
         border-radius: 20px;
     }
 
@@ -412,7 +413,7 @@ body, html {
     }
 
     .option-btn {
-        flex: 1 1 calc(50% - 8px); /* Duas colunas, considerando o gap */
+        flex: 1 1 calc(50% - 8px);
         max-width: 280px;
     }
 
