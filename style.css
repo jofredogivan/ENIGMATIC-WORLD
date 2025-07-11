@@ -1,19 +1,25 @@
-/* style.css - Visual Impactante e Responsivo */
+/* style.css - Visual Enigmático e Impactante */
 
 /* Importação de fontes do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap');
 
 /* Variáveis CSS para facilitar a manutenção de cores */
 :root {
-    --primary-color: #e6b800; /* Dourado vibrante */
-    --secondary-color: #8a2be2; /* Roxo profundo */
-    --text-dark: #333;
-    --text-light: #f0f0f0;
-    --background-dark: #1a1a2e; /* Azul/roxo escuro para fundo principal */
-    --button-bg-start: #008000; /* Verde escuro */
-    --button-hover-start: #006400; /* Verde mais escuro */
-    --button-bg-music: #ff4500; /* Laranja avermelhado vibrante */
-    --button-hover-music: #cc3700; /* Laranja avermelhado mais escuro */
+    --color-primary: #a76d3a; /* Bronze/Dourado Antigo */
+    --color-secondary: #4a148c; /* Roxo Escuro Profundo */
+    --color-accent: #e6b800; /* Dourado Vibrante */
+    --color-text-light: #f5f5dc; /* Bege Claro (papel antigo) */
+    --color-text-dark: #333;
+    --bg-main: #2b2b2b; /* Fundo cinza escuro quase preto */
+    --bg-card: #fdfdfd; /* Fundo para as caixas de conteúdo */
+    --button-action: #4CAF50; /* Verde para ações positivas */
+    --button-action-hover: #45a049;
+    --button-music: #FFD700; /* Dourado para o botão de música */
+    --button-music-hover: #b8860b;
+    --button-option: #6a1b9a; /* Roxo para as opções */
+    --button-option-hover: #570f80;
+    --button-correct: #28a745; /* Verde para correto */
+    --button-incorrect: #dc3545; /* Vermelho para incorreto */
 }
 
 /* Reset básico */
@@ -22,71 +28,86 @@ body, html {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Garante que não haverá barras de rolagem indesejadas */
+    overflow: hidden;
     font-family: 'Open Sans', sans-serif;
-    background: linear-gradient(135deg, var(--background-dark) 0%, #0f002a 100%); /* Gradiente escuro e profundo */
+    background: linear-gradient(135deg, #1a001a 0%, #0a0020 100%); /* Gradiente muito escuro e místico */
+    color: var(--color-text-light); /* Texto claro no fundo escuro */
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-light); /* Cor de texto claro para contrastar com o fundo escuro */
+    position: relative; /* Para posicionar elementos como o botão de música, se fora do app-container */
 }
 
-/* Contêiner principal do aplicativo */
+/* Background com textura/padrão (substitua a imagem se quiser uma específica) */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/mystic-pattern.png'); /* Crie uma imagem de padrão sutil ou use uma genérica */
+    background-size: cover;
+    opacity: 0.1; /* Transparência para o padrão */
+    z-index: -1; /* Fica abaixo de todo o conteúdo */
+}
+
+/* Contêiner principal do aplicativo (simula a tela de um app) */
 .app-container {
-    background-color: rgba(255, 255, 255, 0.05); /* Fundo semi-transparente para ver o gradiente por trás */
-    backdrop-filter: blur(5px); /* Efeito de vidro fosco */
-    border-radius: 20px; /* Bordas arredondadas */
-    border: 2px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); /* Sombra mais forte */
-    width: 95%; /* Ocupa 95% da largura */
-    max-width: 500px; /* Largura máxima para uma experiência "apk" */
-    height: 95vh; /* Ocupa 95% da altura da viewport */
-    max-height: 850px; /* Altura máxima para uma experiência "apk" */
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+    backdrop-filter: blur(8px); /* Efeito de vidro fosco mais forte */
+    border-radius: 25px; /* Bordas bem arredondadas */
+    border: 3px solid var(--color-primary); /* Borda grossa em bronze/dourado */
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7); /* Sombra intensa para profundidade */
+    width: 95%;
+    max-width: 550px; /* Largura máxima para uma experiência "apk" */
+    height: 95vh;
+    max-height: 900px; /* Altura máxima para uma experiência "apk" */
     display: flex;
     flex-direction: column;
     overflow: hidden;
     position: relative;
-    padding-bottom: 70px; /* Espaço para o botão de música no fundo */
-    box-sizing: border-box; /* Inclui padding na largura/altura */
+    box-sizing: border-box;
+    animation: fadeInScale 1s ease-out forwards; /* Animação ao carregar */
 }
 
 /* Estilo para o iframe (conteúdo do jogo) */
 #gameFrame {
     width: 100%;
-    flex-grow: 1; /* Faz o iframe ocupar o espaço restante */
+    flex-grow: 1;
     border: none;
-    background-color: white; /* Garante fundo branco para o conteúdo do iframe */
+    background-color: transparent; /* Permite ver o fundo do .app-container */
     display: block;
 }
 
 /* --- Estilos para o Botão de Música --- */
 .music-toggle-button {
-    position: absolute; /* Posição absoluta em relação ao .app-container */
-    bottom: 20px; /* Distância do fundo */
-    left: 50%; /* Centraliza horizontalmente */
-    transform: translateX(-50%); /* Ajuste para centralizar */
-    padding: 15px 30px;
-    background-color: var(--button-bg-music); /* Laranja avermelhado vibrante */
-    color: white;
-    border: none;
-    border-radius: 30px; /* Forma de pílula */
+    position: absolute;
+    bottom: 25px;
+    right: 25px; /* Reposicionado para o canto inferior direito */
+    padding: 15px 25px;
+    background-color: var(--button-music); /* Dourado impactante */
+    color: var(--color-secondary); /* Texto roxo escuro no dourado */
+    border: 2px solid var(--button-music-hover);
+    border-radius: 30px;
     font-size: 1.1em;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 15px rgba(255, 69, 0, 0.4); /* Sombra marcante */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
     display: flex;
     align-items: center;
     gap: 10px;
     z-index: 100; /* Garante que o botão esteja sempre na frente */
-    text-transform: uppercase; /* Texto em maiúsculas */
-    letter-spacing: 1px; /* Espaçamento entre letras */
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .music-toggle-button:hover {
-    background-color: var(--button-hover-music);
-    transform: translateX(-50%) translateY(-3px); /* Move um pouco para cima no hover */
-    box-shadow: 0 8px 20px rgba(255, 69, 0, 0.5);
+    background-color: var(--button-music-hover);
+    transform: translateY(-5px) scale(1.05); /* Movimento mais pronunciado */
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
+    color: white; /* Cor do texto muda no hover */
 }
 
 /* --- Estilos para a Tela de Início (index.html) - dentro do iframe --- */
@@ -97,10 +118,11 @@ body, html {
     align-items: center;
     height: 100%;
     width: 100%;
-    padding: 20px;
+    padding: 30px;
     box-sizing: border-box;
     background: linear-gradient(180deg, #fefefe 0%, #f0f0f0 100%); /* Fundo suave para o conteúdo */
-    border-radius: 16px; /* Para casar com o contêiner pai */
+    border-radius: 22px; /* Para casar com o contêiner pai, mas um pouco menor */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra interna sutil */
 }
 
 .header {
@@ -109,95 +131,103 @@ body, html {
 }
 
 .globe-icon {
-    width: 120px; /* Globo maior */
-    height: 120px;
+    width: 130px;
+    height: 130px;
     margin-bottom: 25px;
-    animation: pulse 2s infinite ease-in-out; /* Animação sutil para o globo */
+    animation: rotateGlobe 15s linear infinite, pulse 2s infinite ease-in-out; /* Rotação e pulsação */
+    filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.6)); /* Brilho roxo */
 }
 
+@keyframes rotateGlobe {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    50% { transform: scale(1.08); }
     100% { transform: scale(1); }
 }
 
 .intro-container h1 {
-    font-family: 'Cinzel Decorative', serif; /* Fonte de impacto para o título principal */
-    font-size: 3.5em; /* Tamanho grande */
-    color: var(--secondary-color); /* Roxo profundo */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 4em; /* Título gigante */
+    color: var(--color-secondary);
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     margin: 0;
     line-height: 1.1;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
 }
 
 .intro-container p {
-    font-family: 'Playfair Display', serif; /* Fonte elegante para descrições */
-    font-size: 1.3em;
-    color: var(--text-dark);
-    margin-bottom: 35px;
-    max-width: 450px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4em;
+    color: var(--color-text-dark);
+    margin-bottom: 40px;
+    max-width: 500px;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-style: italic;
 }
 
 .input-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     width: 100%;
-    max-width: 320px;
+    max-width: 350px;
 }
 
 .input-area input {
-    padding: 15px 20px;
-    border: 2px solid var(--secondary-color); /* Borda roxa */
-    border-radius: 10px;
-    font-size: 1.1em;
+    padding: 18px 25px;
+    border: 3px solid var(--color-secondary); /* Borda grossa roxa */
+    border-radius: 12px;
+    font-size: 1.2em;
     width: 100%;
     box-sizing: border-box;
-    background-color: #fcfcfc;
-    color: var(--text-dark);
+    background-color: #fefefe;
+    color: var(--color-text-dark);
+    font-weight: 500;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-area input::placeholder {
-    color: #999;
+    color: #a0a0a0;
 }
 
 .input-area input:focus {
-    border-color: var(--primary-color); /* Borda dourada no foco */
-    box-shadow: 0 0 0 4px rgba(230, 184, 0, 0.3);
+    border-color: var(--color-accent); /* Borda dourada no foco */
+    box-shadow: 0 0 0 5px rgba(230, 184, 0, 0.4);
     outline: none;
 }
 
 .input-area button, .start-button {
-    padding: 15px 30px;
-    background-color: var(--button-bg-start); /* Verde marcante */
+    padding: 18px 35px;
+    background-color: var(--button-action); /* Verde impactante */
     color: white;
     border: none;
-    border-radius: 10px;
-    font-size: 1.2em;
+    border-radius: 12px;
+    font-size: 1.3em;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 15px rgba(0, 128, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
     width: 100%;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 .input-area button:hover, .start-button:hover {
-    background-color: var(--button-hover-start);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 128, 0, 0.4);
+    background-color: var(--button-action-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.5);
 }
 
 .footer-text {
-    margin-top: 50px;
-    font-size: 0.9em;
-    color: #888;
+    margin-top: 60px;
+    font-size: 1em;
+    color: #777;
+    font-style: italic;
 }
 
 /* --- Estilos para as Fases de Quiz (faseX.html) - dentro do iframe --- */
@@ -208,94 +238,96 @@ body, html {
     align-items: center;
     height: 100%;
     width: 100%;
-    padding: 25px;
+    padding: 30px;
     box-sizing: border-box;
-    background-color: #ffffff; /* Fundo branco consistente */
-    border-radius: 16px; /* Para casar com o contêiner pai */
+    background-color: #ffffff; /* Fundo branco para o conteúdo */
+    border-radius: 22px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .story-intro-container h2, .final-screen-container h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5em;
-    color: var(--secondary-color);
-    margin-bottom: 25px;
+    font-size: 2.8em;
+    color: var(--color-secondary);
+    margin-bottom: 30px;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 
 .story-intro-container p, .final-message {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.1em;
-    color: var(--text-dark);
+    font-size: 1.2em;
+    color: var(--color-text-dark);
     max-width: 600px;
-    line-height: 1.6;
-    margin-bottom: 30px;
+    line-height: 1.7;
+    margin-bottom: 35px;
     text-align: center;
 }
 
 .question-area h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8em;
-    color: var(--text-dark);
-    margin-bottom: 25px;
+    font-size: 2em;
+    color: var(--color-secondary);
+    margin-bottom: 30px;
     text-align: center;
 }
 
 .question-status {
-    font-size: 0.9em;
+    font-size: 0.95em;
     color: #777;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
 .enigma-title {
     font-family: 'Cinzel Decorative', serif;
-    font-size: 2em;
-    color: var(--primary-color);
-    margin-bottom: 30px;
+    font-size: 2.5em;
+    color: var(--color-primary);
+    margin-bottom: 35px;
     text-align: center;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .pergunta-text {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.2em;
-    color: var(--text-dark);
-    margin-bottom: 35px;
+    font-size: 1.3em;
+    color: var(--color-text-dark);
+    margin-bottom: 40px;
     max-width: 700px;
     text-align: center;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .opcoes-container {
     display: flex;
-    flex-direction: column; /* Sempre em coluna para mobile-first */
-    gap: 15px;
-    margin-bottom: 30px;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 35px;
     width: 100%;
-    max-width: 400px; /* Limita largura para botões de opção */
+    max-width: 450px;
 }
 
 .option-btn {
-    padding: 18px 25px;
-    background-color: var(--secondary-color); /* Roxo para as opções */
+    padding: 20px 25px;
+    background-color: var(--button-option); /* Roxo para as opções */
     color: white;
     border: none;
-    border-radius: 12px;
-    font-size: 1.1em;
+    border-radius: 15px;
+    font-size: 1.2em;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.2);
+    box-shadow: 0 6px 15px rgba(106, 27, 154, 0.3);
     width: 100%;
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
 }
 
 .option-btn:hover:not(:disabled) {
-    background-color: #7a1ee0; /* Roxo mais escuro no hover */
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
+    background-color: var(--button-option-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(106, 27, 154, 0.4);
 }
 
 .option-btn:disabled {
@@ -304,63 +336,33 @@ body, html {
 }
 
 .option-btn.correct-answer {
-    background-color: #28a745; /* Verde para correto */
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    background-color: var(--button-correct); /* Verde para correto */
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
 }
 
 .option-btn.incorrect-answer {
-    background-color: #dc3545; /* Vermelho para incorreto */
-    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    background-color: var(--button-incorrect); /* Vermelho para incorreto */
+    box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
 }
 
 .feedback-text {
-    margin-top: 20px;
-    font-size: 1.3em;
+    margin-top: 25px;
+    font-size: 1.4em;
     font-weight: 700;
     text-align: center;
 }
 
 .feedback-correct {
-    color: #28a745;
+    color: var(--button-correct);
 }
 
 .feedback-incorrect {
-    color: #dc3545;
+    color: var(--button-incorrect);
 }
 
 .next-button {
-    padding: 15px 30px;
-    background-color: var(--primary-color); /* Dourado para o próximo */
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.2em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    margin-top: 25px;
-    box-shadow: 0 6px 15px rgba(230, 184, 0, 0.3);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.next-button:hover {
-    background-color: #cca300; /* Dourado mais escuro */
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(230, 184, 0, 0.4);
-}
-
-/* --- Estilos para a Tela Final (fase-final.html) --- */
-.final-score {
-    font-size: 2.2em;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.restart-button {
     padding: 18px 35px;
-    background-color: var(--button-bg-start);
+    background-color: var(--color-accent); /* Dourado para o próximo */
     color: white;
     border: none;
     border-radius: 12px;
@@ -368,81 +370,58 @@ body, html {
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 8px 20px rgba(0, 128, 0, 0.4);
+    margin-top: 30px;
+    box-shadow: 0 8px 20px rgba(230, 184, 0, 0.4);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+}
+
+.next-button:hover {
+    background-color: #cca300;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(230, 184, 0, 0.5);
+}
+
+/* --- Estilos para a Tela Final (fase-final.html) --- */
+.final-score {
+    font-size: 2.5em;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.restart-button {
+    padding: 20px 40px;
+    background-color: var(--button-action);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.4em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
 .restart-button:hover {
-    background-color: var(--button-hover-start);
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 128, 0, 0.5);
+    background-color: var(--button-action-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(76, 175, 80, 0.6);
 }
 
-/* --- Media Queries para Responsividade (desktop) --- */
-@media (min-width: 768px) {
-    .app-container {
-        max-width: 760px; /* Largura maior para tablets/desktops */
-        height: 90vh; /* Permite ocupar mais altura */
-        padding-bottom: 20px; /* Reduz o padding inferior, botão no canto */
-    }
-
-    .intro-container h1 {
-        font-size: 4.5em; /* Títulos maiores em telas grandes */
-    }
-
-    .story-intro-container h2, .final-screen-container h2 {
-        font-size: 3.5em;
-    }
-
-    .input-area {
-        flex-direction: row; /* Input e botão na mesma linha em desktop */
-        gap: 20px;
-        max-width: none;
-        width: auto;
-    }
-
-    .input-area input {
-        width: 250px;
-    }
-
-    .input-area button, .start-button {
-        width: auto;
-        min-width: 180px;
-    }
-
-    .opcoes-container {
-        flex-direction: row; /* Opções em linha em desktop */
-        flex-wrap: wrap;
-        justify-content: center;
-        max-width: 600px; /* Aumenta a largura máxima para as opções */
-    }
-
-    .option-btn {
-        flex: 1 1 calc(50% - 10px); /* Duas colunas, considerando o gap */
-        max-width: 290px;
-    }
-
-    /* Posição do botão de música em tablets/desktops */
-    .music-toggle-button {
-        bottom: 25px;
-        right: 25px;
-        left: unset; /* Remove o left: 50% para posicionar à direita */
-        transform: none; /* Remove a transformação de centralização */
-        padding: 15px 25px;
-        font-size: 1.1em;
-    }
-
-    .music-toggle-button:hover {
-        transform: translateY(-3px); /* Mantém um pequeno movimento vertical */
-    }
+/* --- Utilitários --- */
+.hidden {
+    display: none;
 }
 
 /* Animação para o contêiner do jogo ao carregar (opcional, pode ser removida) */
 @keyframes fadeInScale {
     from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: scale(0.9);
     }
     to {
         opacity: 1;
@@ -450,6 +429,61 @@ body, html {
     }
 }
 
-.app-container {
-    animation: fadeInScale 0.8s ease-out forwards;
+/* Media Queries para Responsividade (desktop) */
+@media (min-width: 768px) {
+    .app-container {
+        max-width: 800px;
+        max-height: 90vh;
+        border-radius: 30px;
+        padding-bottom: 25px; /* Ajusta o padding para o botão no canto */
+    }
+
+    .intro-container h1 {
+        font-size: 5em;
+    }
+
+    .story-intro-container h2, .final-screen-container h2 {
+        font-size: 3.8em;
+    }
+
+    .input-area {
+        flex-direction: row;
+        gap: 25px;
+        max-width: none;
+    }
+
+    .input-area input {
+        width: 280px;
+    }
+
+    .input-area button, .start-button {
+        min-width: 200px;
+    }
+
+    .opcoes-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 700px;
+        gap: 20px;
+    }
+
+    .option-btn {
+        flex: 1 1 calc(50% - 10px);
+        max-width: 330px;
+    }
+
+    /* Posição do botão de música em tablets/desktops */
+    .music-toggle-button {
+        bottom: 30px;
+        right: 30px;
+        left: unset;
+        transform: none;
+        padding: 18px 30px;
+        font-size: 1.2em;
+    }
+
+    .music-toggle-button:hover {
+        transform: translateY(-5px); /* Mantém um pequeno movimento vertical */
+    }
 }
