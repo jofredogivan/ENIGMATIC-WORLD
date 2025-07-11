@@ -4,63 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enigmatic World</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="app-container"> <audio id="backgroundMusic" loop>
+    <div class="app-container">
+        <audio id="backgroundMusic" loop>
             <source src="assets/music_theme.mp3" type="audio/mpeg">
             Seu navegador não suporta o elemento de áudio.
         </audio>
 
         <iframe id="gameFrame" src="index.html" style="width: 100%; height: 100%; border: none; background-color: white;"></iframe>
-    </div>
 
-    <button id="toggleMusicBtn" class="music-toggle-button">🎶 Música: Ligar</button>
+        <button id="toggleMusicBtn" class="music-toggle-button">🎶 Música: Ligar</button>
+    </div>
 
     <script>
         const backgroundMusic = document.getElementById("backgroundMusic");
         const toggleMusicBtn = document.getElementById("toggleMusicBtn");
         const gameFrame = document.getElementById("gameFrame");
 
+        // Verifica se os elementos foram encontrados (para depuração)
+        console.log("backgroundMusic element:", backgroundMusic);
+        console.log("toggleMusicBtn element:", toggleMusicBtn);
+
         let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
         
-        toggleMusicBtn.textContent = isMusicPlaying ? "🎶 Música: Desligar" : "🎶 Música: Ligar";
+        // Define o texto inicial do botão
+        if (toggleMusicBtn) { // Adicionado verificação para garantir que o botão existe
+            toggleMusicBtn.textContent = isMusicPlaying ? "🎶 Música: Desligar" : "🎶 Música: Ligar";
+        }
 
+        // Tenta tocar a música se o usuário deixou ligada da última vez
         if (isMusicPlaying) {
             backgroundMusic.volume = 0.4;
             backgroundMusic.play().catch(e => {
                 console.warn("Autoplay de música bloqueado pelo navegador:", e);
                 isMusicPlaying = false; 
                 localStorage.setItem("isMusicPlaying", isMusicPlaying);
-                toggleMusicBtn.textContent = "🎶 Música: Ligar";
+                if (toggleMusicBtn) { toggleMusicBtn.textContent = "🎶 Música: Ligar"; }
             });
         }
 
-        toggleMusicBtn.addEventListener("click", () => {
-            if (backgroundMusic.paused) {
-                backgroundMusic.volume = 0.4;
-                backgroundMusic.play().then(() => {
-                    isMusicPlaying = true;
-                    toggleMusicBtn.textContent = "🎶 Música: Desligar";
-                }).catch(e => {
-                    console.error("Erro ao tentar tocar música via botão:", e);
-                    alert("Não foi possível tocar a música. O navegador pode ter bloqueado a reprodução automática.");
-                });
-            } else {
-                backgroundMusic.pause();
-                isMusicPlaying = false;
-                toggleMusicBtn.textContent = "🎶 Música: Ligar";
-            }
-            localStorage.setItem("isMusicPlaying", isMusicPlaying);
-        });
+        // Adiciona o evento de clique ao botão de toggle
+        if (toggleMusicBtn) { // Adicionado verificação para garantir que o botão existe
+            toggleMusicBtn.addEventListener("click", () => {
+                console.log("Botão de música clicado!"); // Para depuração
+                if (backgroundMusic.paused) {
+                    backgroundMusic.volume = 0.4;
+                    backgroundMusic.play().then(() => {
+                        isMusicPlaying = true;
+                        toggleMusicBtn.textContent = "🎶 Música: Desligar";
+                    }).catch(e => {
+                        console.error("Erro ao tentar tocar música:", e);
+                        alert("Não foi possível tocar a música. O navegador pode ter bloqueado a reprodução automática.");
+                    });
+                } else {
+                    backgroundMusic.pause();
+                    isMusicPlaying = false;
+                    toggleMusicBtn.textContent = "🎶 Música: Ligar";
+                }
+                localStorage.setItem("isMusicPlaying", isMusicPlaying);
+            });
+        } else {
+            console.error("Botão de música não encontrado no DOM!");
+        }
 
+        // Listener para receber mensagens do iframe filho (faseX.js e fase-final.js)
         window.addEventListener('message', (event) => {
             if (event.source === gameFrame.contentWindow && event.data && event.data.type === 'toggleMusic') {
-                toggleMusicBtn.click(); 
+                if (toggleMusicBtn) { toggleMusicBtn.click(); }
             }
         });
         
+        // Quando o iframe recarrega (ex: navegando para uma nova fase)
         gameFrame.addEventListener('load', () => {
             if (gameFrame.contentWindow) {
                 gameFrame.contentWindow.postMessage({
@@ -70,6 +87,7 @@
             }
         });
 
+        // Dispara o evento de carregamento para o estado inicial, caso o iframe já esteja carregado.
         if (gameFrame.contentWindow && gameFrame.contentWindow.document.readyState === 'complete') {
             gameFrame.contentWindow.postMessage({
                 type: 'musicState',
