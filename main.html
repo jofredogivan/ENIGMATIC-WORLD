@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enigmatic World</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet" />
 </head>
 <body>
@@ -14,8 +14,7 @@
             Seu navegador não suporta o elemento de áudio.
         </audio>
 
-        <iframe id="gameFrame" src="index.html" style="width: 100%; height: 100%; border: none; background-color: white;"></iframe>
-
+        <iframe id="gameFrame" src="index.html" style="width: 100%; height: 100%; border: none; background-color: transparent;"></iframe>
         <button id="toggleMusicBtn" class="music-toggle-button">🎶 Música: Ligar</button>
     </div>
 
@@ -26,7 +25,7 @@
 
         // Logs de depuração (manter para garantir que os elementos são encontrados)
         console.log("backgroundMusic element:", backgroundMusic);
-        console.log("toggleMusicBtn element:", toggleMusicBtn);
+        console.log("toggleMusicBtn element:", toggleMusicBtn); // Verifica se o botão foi encontrado no DOM
 
         let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
         
@@ -37,7 +36,7 @@
 
         // Tenta tocar a música se o usuário deixou ligada da última vez
         if (isMusicPlaying) {
-            if (backgroundMusic) { // Adicionado verificação para backgroundMusic
+            if (backgroundMusic) { 
                 backgroundMusic.volume = 0.4;
                 backgroundMusic.play().catch(e => {
                     console.warn("Autoplay de música bloqueado pelo navegador:", e);
