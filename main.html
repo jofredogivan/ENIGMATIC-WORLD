@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enigmatic World</title>
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link href="style.css" rel="stylesheet" /> 
+    <link href="style.css" rel="stylesheet" />
 </head>
 <body>
     <div class="app-container">
@@ -27,18 +27,18 @@
         console.log("backgroundMusic element:", backgroundMusic);
         console.log("toggleMusicBtn element:", toggleMusicBtn);
 
-        let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
+        let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true";
         
-        if (toggleMusicBtn) { 
+        if (toggleMusicBtn) {
             toggleMusicBtn.textContent = isMusicPlaying ? "🎶 Música: Desligar" : "🎶 Música: Ligar";
         }
 
         if (isMusicPlaying) {
-            if (backgroundMusic) { 
+            if (backgroundMusic) {
                 backgroundMusic.volume = 0.4;
                 backgroundMusic.play().catch(e => {
                     console.warn("Autoplay de música bloqueado pelo navegador:", e);
-                    isMusicPlaying = false; 
+                    isMusicPlaying = false;
                     localStorage.setItem("isMusicPlaying", isMusicPlaying);
                     if (toggleMusicBtn) { toggleMusicBtn.textContent = "🎶 Música: Ligar"; }
                 });
@@ -47,9 +47,9 @@
             }
         }
 
-        if (toggleMusicBtn) { 
+        if (toggleMusicBtn) {
             toggleMusicBtn.addEventListener("click", () => {
-                console.log("Botão de música clicado!"); 
+                console.log("Botão de música clicado!");
                 if (backgroundMusic && backgroundMusic.paused) {
                     backgroundMusic.volume = 0.4;
                     backgroundMusic.play().then(() => {
@@ -81,7 +81,7 @@
                 gameFrame.contentWindow.postMessage({
                     type: 'musicState',
                     isPlaying: isMusicPlaying
-                }, '*'); 
+                }, '*');
             }
         });
 
