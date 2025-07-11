@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enigmatic World</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet" />
 </head>
 <body>
@@ -24,33 +24,37 @@
         const toggleMusicBtn = document.getElementById("toggleMusicBtn");
         const gameFrame = document.getElementById("gameFrame");
 
-        // Verifica se os elementos foram encontrados (para depuração)
+        // Logs de depuração (manter para garantir que os elementos são encontrados)
         console.log("backgroundMusic element:", backgroundMusic);
         console.log("toggleMusicBtn element:", toggleMusicBtn);
 
         let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
         
-        // Define o texto inicial do botão
-        if (toggleMusicBtn) { // Adicionado verificação para garantir que o botão existe
+        // Define o texto inicial do botão, verificando se o botão existe
+        if (toggleMusicBtn) { 
             toggleMusicBtn.textContent = isMusicPlaying ? "🎶 Música: Desligar" : "🎶 Música: Ligar";
         }
 
         // Tenta tocar a música se o usuário deixou ligada da última vez
         if (isMusicPlaying) {
-            backgroundMusic.volume = 0.4;
-            backgroundMusic.play().catch(e => {
-                console.warn("Autoplay de música bloqueado pelo navegador:", e);
-                isMusicPlaying = false; 
-                localStorage.setItem("isMusicPlaying", isMusicPlaying);
-                if (toggleMusicBtn) { toggleMusicBtn.textContent = "🎶 Música: Ligar"; }
-            });
+            if (backgroundMusic) { // Adicionado verificação para backgroundMusic
+                backgroundMusic.volume = 0.4;
+                backgroundMusic.play().catch(e => {
+                    console.warn("Autoplay de música bloqueado pelo navegador:", e);
+                    isMusicPlaying = false; 
+                    localStorage.setItem("isMusicPlaying", isMusicPlaying);
+                    if (toggleMusicBtn) { toggleMusicBtn.textContent = "🎶 Música: Ligar"; }
+                });
+            } else {
+                console.error("Elemento de áudio backgroundMusic não encontrado!");
+            }
         }
 
         // Adiciona o evento de clique ao botão de toggle
-        if (toggleMusicBtn) { // Adicionado verificação para garantir que o botão existe
+        if (toggleMusicBtn) { 
             toggleMusicBtn.addEventListener("click", () => {
                 console.log("Botão de música clicado!"); // Para depuração
-                if (backgroundMusic.paused) {
+                if (backgroundMusic && backgroundMusic.paused) {
                     backgroundMusic.volume = 0.4;
                     backgroundMusic.play().then(() => {
                         isMusicPlaying = true;
@@ -59,7 +63,7 @@
                         console.error("Erro ao tentar tocar música:", e);
                         alert("Não foi possível tocar a música. O navegador pode ter bloqueado a reprodução automática.");
                     });
-                } else {
+                } else if (backgroundMusic) {
                     backgroundMusic.pause();
                     isMusicPlaying = false;
                     toggleMusicBtn.textContent = "🎶 Música: Ligar";
@@ -67,7 +71,7 @@
                 localStorage.setItem("isMusicPlaying", isMusicPlaying);
             });
         } else {
-            console.error("Botão de música não encontrado no DOM!");
+            console.error("Botão de música não encontrado no DOM! Verifique o ID e o carregamento do script.");
         }
 
         // Listener para receber mensagens do iframe filho (faseX.js e fase-final.js)
