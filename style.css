@@ -1,113 +1,91 @@
-/* style.css - Visual Enigmático e Impactante */
+/* style.css - Estilo Pergaminho Mobile-first */
 
-/* Importação de fontes do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap');
+/* Importação de fontes */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Open+Sans:wght@400;700&display=swap');
 
-/* Variáveis CSS para facilitar a manutenção de cores */
+/* Variáveis para cores */
 :root {
-    --color-primary: #a76d3a; /* Bronze/Dourado Antigo */
-    --color-secondary: #4a148c; /* Roxo Escuro Profundo */
-    --color-accent: #e6b800; /* Dourado Vibrante */
-    --color-text-light: #f5f5dc; /* Bege Claro (papel antigo) */
-    --color-text-dark: #333;
-    --bg-main: #2b2b2b; /* Fundo cinza escuro quase preto */
-    --bg-card: #fdfdfd; /* Fundo para as caixas de conteúdo */
-    --button-action: #4CAF50; /* Verde para ações positivas */
-    --button-action-hover: #45a049;
-    --button-music: #FFD700; /* Dourado para o botão de música */
-    --button-music-hover: #b8860b;
-    --button-option: #6a1b9a; /* Roxo para as opções */
-    --button-option-hover: #570f80;
-    --button-correct: #28a745; /* Verde para correto */
-    --button-incorrect: #dc3545; /* Vermelho para incorreto */
+    --color-paper-light: #fdf5e6; /* Cor de pergaminho claro */
+    --color-paper-dark: #f0e6c8;  /* Cor de pergaminho um pouco mais escuro */
+    --color-text-dark: #4a3e2a;   /* Marrom escuro para o texto */
+    --color-button-primary: #8b4513; /* Marrom sépia para botões principais */
+    --color-button-hover: #a0522d;   /* Marrom sépia mais claro no hover */
+    --color-button-music: #6b8e23;   /* Verde oliva para botão de música */
+    --color-button-music-hover: #556b2f; /* Verde oliva mais escuro */
+    --color-button-option: #d2b48c;  /* Bege areia para opções */
+    --color-button-option-hover: #c3a17e;
+    --color-correct: #3cb371; /* Verde esmeralda */
+    --color-incorrect: #dc143c; /* Vermelho carmesim */
 }
 
-/* Reset básico */
+/* Reset básico e fundo principal */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: hidden; /* Garante que não haja barras de rolagem */
     font-family: 'Open Sans', sans-serif;
-    background: linear-gradient(135deg, #1a001a 0%, #0a0020 100%); /* Gradiente muito escuro e místico */
-    color: var(--color-text-light); /* Texto claro no fundo escuro */
+    background: url('assets/parchment_texture.jpg') repeat; /* Textura de pergaminho para o fundo */
+    background-size: cover; /* Garante que cubra a área */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Para posicionar elementos como o botão de música, se fora do app-container */
-}
-
-/* Background com textura/padrão (substitua a imagem se quiser uma específica) */
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('assets/mystic-pattern.png'); /* Crie uma imagem de padrão sutil ou use uma genérica */
-    background-size: cover;
-    opacity: 0.1; /* Transparência para o padrão */
-    z-index: -1; /* Fica abaixo de todo o conteúdo */
+    color: var(--color-text-dark);
 }
 
 /* Contêiner principal do aplicativo (simula a tela de um app) */
 .app-container {
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
-    backdrop-filter: blur(8px); /* Efeito de vidro fosco mais forte */
-    border-radius: 25px; /* Bordas bem arredondadas */
-    border: 3px solid var(--color-primary); /* Borda grossa em bronze/dourado */
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7); /* Sombra intensa para profundidade */
-    width: 95%;
-    max-width: 550px; /* Largura máxima para uma experiência "apk" */
-    height: 95vh;
-    max-height: 900px; /* Altura máxima para uma experiência "apk" */
+    background-color: var(--color-paper-light); /* Fundo cor de pergaminho */
+    border: 5px solid var(--color-button-primary); /* Borda mais robusta em marrom */
+    border-radius: 15px; /* Bordas arredondadas */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Sombra para dar profundidade de livro/mapa */
+    width: 95%; /* Quase 100% em mobile */
+    max-width: 450px; /* Largura máxima para uma experiência mobile */
+    height: 95vh; /* Ocupa a maior parte da altura */
+    max-height: 800px; /* Altura máxima para mobile */
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    animation: fadeInScale 1s ease-out forwards; /* Animação ao carregar */
+    overflow: hidden; /* Esconde o que vazar */
+    position: relative; /* Essencial para o posicionamento do botão */
+    box-sizing: border-box; /* Inclui padding e border no cálculo de width/height */
 }
 
 /* Estilo para o iframe (conteúdo do jogo) */
 #gameFrame {
     width: 100%;
-    flex-grow: 1;
+    flex-grow: 1; /* Ocupa o espaço disponível */
     border: none;
-    background-color: transparent; /* Permite ver o fundo do .app-container */
+    background-color: transparent; /* Permite que o fundo do .app-container apareça */
     display: block;
 }
 
 /* --- Estilos para o Botão de Música --- */
 .music-toggle-button {
-    position: absolute;
-    bottom: 25px;
-    right: 25px; /* Reposicionado para o canto inferior direito */
-    padding: 15px 25px;
-    background-color: var(--button-music); /* Dourado impactante */
-    color: var(--color-secondary); /* Texto roxo escuro no dourado */
-    border: 2px solid var(--button-music-hover);
-    border-radius: 30px;
-    font-size: 1.1em;
+    position: absolute; /* Posição absoluta em relação ao .app-container */
+    bottom: 15px; /* Distância do fundo */
+    right: 15px; /* Distância da direita */
+    padding: 10px 18px;
+    background-color: var(--color-button-music); /* Verde oliva */
+    color: white;
+    border: 2px solid var(--color-button-music-hover);
+    border-radius: 25px; /* Forma de pílula */
+    font-size: 0.9em;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     z-index: 100; /* Garante que o botão esteja sempre na frente */
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .music-toggle-button:hover {
-    background-color: var(--button-music-hover);
-    transform: translateY(-5px) scale(1.05); /* Movimento mais pronunciado */
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
-    color: white; /* Cor do texto muda no hover */
+    background-color: var(--color-button-music-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* --- Estilos para a Tela de Início (index.html) - dentro do iframe --- */
@@ -118,116 +96,99 @@ body::before {
     align-items: center;
     height: 100%;
     width: 100%;
-    padding: 30px;
+    padding: 20px;
     box-sizing: border-box;
-    background: linear-gradient(180deg, #fefefe 0%, #f0f0f0 100%); /* Fundo suave para o conteúdo */
-    border-radius: 22px; /* Para casar com o contêiner pai, mas um pouco menor */
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra interna sutil */
+    background-color: var(--color-paper-light); /* Fundo de pergaminho para a intro */
+    border-radius: 10px; /* Bordas arredondadas para o conteúdo interno */
 }
 
 .header {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
 .globe-icon {
-    width: 130px;
-    height: 130px;
-    margin-bottom: 25px;
-    animation: rotateGlobe 15s linear infinite, pulse 2s infinite ease-in-out; /* Rotação e pulsação */
-    filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.6)); /* Brilho roxo */
-}
-
-@keyframes rotateGlobe {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-}
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-    100% { transform: scale(1); }
+    width: 90px;
+    height: 90px;
+    margin-bottom: 20px;
+    filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.3)); /* Sombra para o globo */
 }
 
 .intro-container h1 {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 4em; /* Título gigante */
-    color: var(--color-secondary);
-    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    font-family: 'IM Fell DW Pica', serif; /* Fonte de pergaminho para o título */
+    font-size: 2.8em;
+    color: var(--color-button-primary);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     margin: 0;
-    line-height: 1.1;
-    letter-spacing: 2px;
+    line-height: 1.2;
 }
 
 .intro-container p {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4em;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.05em;
     color: var(--color-text-dark);
-    margin-bottom: 40px;
-    max-width: 500px;
+    margin-bottom: 25px;
+    max-width: 400px;
     text-align: center;
-    line-height: 1.6;
-    font-style: italic;
+    line-height: 1.5;
 }
 
 .input-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     width: 100%;
-    max-width: 350px;
+    max-width: 300px;
 }
 
 .input-area input {
-    padding: 18px 25px;
-    border: 3px solid var(--color-secondary); /* Borda grossa roxa */
-    border-radius: 12px;
-    font-size: 1.2em;
+    padding: 12px 18px;
+    border: 2px solid var(--color-button-primary); /* Borda marrom */
+    border-radius: 8px;
+    font-size: 1em;
     width: 100%;
     box-sizing: border-box;
-    background-color: #fefefe;
+    background-color: white;
     color: var(--color-text-dark);
-    font-weight: 500;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-area input::placeholder {
-    color: #a0a0a0;
+    color: #999;
 }
 
 .input-area input:focus {
-    border-color: var(--color-accent); /* Borda dourada no foco */
-    box-shadow: 0 0 0 5px rgba(230, 184, 0, 0.4);
+    border-color: var(--color-button-music); /* Verde no foco */
+    box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.3);
     outline: none;
 }
 
 .input-area button, .start-button {
-    padding: 18px 35px;
-    background-color: var(--button-action); /* Verde impactante */
+    padding: 12px 25px;
+    background-color: var(--color-button-primary); /* Marrom sépia */
     color: white;
     border: none;
-    border-radius: 12px;
-    font-size: 1.3em;
+    border-radius: 8px;
+    font-size: 1.1em;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     width: 100%;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
 }
 
 .input-area button:hover, .start-button:hover {
-    background-color: var(--button-action-hover);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.5);
+    background-color: var(--color-button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .footer-text {
-    margin-top: 60px;
-    font-size: 1em;
-    color: #777;
-    font-style: italic;
+    margin-top: 40px;
+    font-size: 0.85em;
+    color: #666;
 }
 
 /* --- Estilos para as Fases de Quiz (faseX.html) - dentro do iframe --- */
@@ -238,178 +199,172 @@ body::before {
     align-items: center;
     height: 100%;
     width: 100%;
-    padding: 30px;
+    padding: 25px;
     box-sizing: border-box;
-    background-color: #ffffff; /* Fundo branco para o conteúdo */
-    border-radius: 22px;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-paper-light); /* Fundo de pergaminho para o conteúdo */
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra interna sutil */
 }
 
 .story-intro-container h2, .final-screen-container h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8em;
-    color: var(--color-secondary);
-    margin-bottom: 30px;
+    font-family: 'IM Fell DW Pica', serif;
+    font-size: 2.2em;
+    color: var(--color-button-primary);
+    margin-bottom: 20px;
     text-align: center;
-    line-height: 1.3;
+    line-height: 1.2;
 }
 
 .story-intro-container p, .final-message {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.2em;
+    font-size: 1em;
     color: var(--color-text-dark);
     max-width: 600px;
-    line-height: 1.7;
-    margin-bottom: 35px;
+    line-height: 1.6;
+    margin-bottom: 25px;
     text-align: center;
 }
 
 .question-area h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2em;
-    color: var(--color-secondary);
-    margin-bottom: 30px;
+    font-family: 'IM Fell DW Pica', serif;
+    font-size: 1.5em;
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
     text-align: center;
 }
 
 .question-status {
-    font-size: 0.95em;
+    font-size: 0.85em;
     color: #777;
-    margin-bottom: 20px;
-    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .enigma-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 2.5em;
-    color: var(--color-primary);
-    margin-bottom: 35px;
+    font-family: 'IM Fell DW Pica', serif;
+    font-size: 1.8em;
+    color: var(--color-button-primary);
+    margin-bottom: 25px;
     text-align: center;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .pergunta-text {
     font-family: 'Open Sans', sans-serif;
-    font-size: 1.3em;
+    font-size: 1.1em;
     color: var(--color-text-dark);
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     max-width: 700px;
     text-align: center;
-    line-height: 1.7;
 }
 
 .opcoes-container {
     display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-bottom: 35px;
+    flex-direction: column; /* Sempre em coluna para mobile */
+    gap: 12px;
+    margin-bottom: 20px;
     width: 100%;
-    max-width: 450px;
+    max-width: 350px;
 }
 
 .option-btn {
-    padding: 20px 25px;
-    background-color: var(--button-option); /* Roxo para as opções */
-    color: white;
-    border: none;
-    border-radius: 15px;
-    font-size: 1.2em;
+    padding: 15px 20px;
+    background-color: var(--color-button-option); /* Bege areia */
+    color: var(--color-text-dark);
+    border: 1px solid #c2b4a1;
+    border-radius: 10px;
+    font-size: 1em;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 15px rgba(106, 27, 154, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
 }
 
 .option-btn:hover:not(:disabled) {
-    background-color: var(--button-option-hover);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(106, 27, 154, 0.4);
+    background-color: var(--color-button-option-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .option-btn:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .option-btn.correct-answer {
-    background-color: var(--button-correct); /* Verde para correto */
-    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+    background-color: var(--color-correct); /* Verde esmeralda */
+    color: white;
+    border-color: var(--color-correct);
 }
 
 .option-btn.incorrect-answer {
-    background-color: var(--button-incorrect); /* Vermelho para incorreto */
-    box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+    background-color: var(--color-incorrect); /* Vermelho carmesim */
+    color: white;
+    border-color: var(--color-incorrect);
 }
 
 .feedback-text {
-    margin-top: 25px;
-    font-size: 1.4em;
+    margin-top: 15px;
+    font-size: 1.1em;
     font-weight: 700;
     text-align: center;
 }
 
 .feedback-correct {
-    color: var(--button-correct);
+    color: var(--color-correct);
 }
 
 .feedback-incorrect {
-    color: var(--button-incorrect);
+    color: var(--color-incorrect);
 }
 
 .next-button {
-    padding: 18px 35px;
-    background-color: var(--color-accent); /* Dourado para o próximo */
+    padding: 12px 25px;
+    background-color: var(--color-button-primary);
     color: white;
     border: none;
-    border-radius: 12px;
-    font-size: 1.3em;
+    border-radius: 8px;
+    font-size: 1.1em;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    margin-top: 30px;
-    box-shadow: 0 8px 20px rgba(230, 184, 0, 0.4);
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
 }
 
 .next-button:hover {
-    background-color: #cca300;
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(230, 184, 0, 0.5);
+    background-color: var(--color-button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* --- Estilos para a Tela Final (fase-final.html) --- */
 .final-score {
-    font-size: 2.5em;
-    color: var(--color-primary);
-    margin-bottom: 25px;
+    font-size: 1.8em;
+    color: var(--color-button-primary);
+    margin-bottom: 15px;
     font-weight: 700;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .restart-button {
-    padding: 20px 40px;
-    background-color: var(--button-action);
+    padding: 15px 30px;
+    background-color: var(--color-button-primary);
     color: white;
     border: none;
-    border-radius: 15px;
-    font-size: 1.4em;
+    border-radius: 10px;
+    font-size: 1.2em;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
 }
 
 .restart-button:hover {
-    background-color: var(--button-action-hover);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(76, 175, 80, 0.6);
+    background-color: var(--color-button-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* --- Utilitários --- */
@@ -417,73 +372,55 @@ body::before {
     display: none;
 }
 
-/* Animação para o contêiner do jogo ao carregar (opcional, pode ser removida) */
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
 /* Media Queries para Responsividade (desktop) */
 @media (min-width: 768px) {
     .app-container {
-        max-width: 800px;
-        max-height: 90vh;
-        border-radius: 30px;
-        padding-bottom: 25px; /* Ajusta o padding para o botão no canto */
+        max-width: 700px; /* Largura maior para desktop */
+        height: 85vh; /* Ocupa um pouco menos da altura total */
+        border-radius: 20px;
     }
 
     .intro-container h1 {
-        font-size: 5em;
+        font-size: 3.5em;
     }
 
     .story-intro-container h2, .final-screen-container h2 {
-        font-size: 3.8em;
+        font-size: 2.8em;
     }
 
     .input-area {
         flex-direction: row;
-        gap: 25px;
+        gap: 20px;
         max-width: none;
+        width: auto;
     }
 
     .input-area input {
-        width: 280px;
+        width: 250px;
     }
 
     .input-area button, .start-button {
-        min-width: 200px;
+        min-width: 180px;
     }
 
     .opcoes-container {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        max-width: 700px;
-        gap: 20px;
+        max-width: 600px;
+        gap: 15px;
     }
 
     .option-btn {
-        flex: 1 1 calc(50% - 10px);
-        max-width: 330px;
+        flex: 1 1 calc(50% - 8px); /* Duas colunas, considerando o gap */
+        max-width: 280px;
     }
 
-    /* Posição do botão de música em tablets/desktops */
+    /* Posição do botão de música em desktop */
     .music-toggle-button {
-        bottom: 30px;
-        right: 30px;
-        left: unset;
-        transform: none;
-        padding: 18px 30px;
-        font-size: 1.2em;
-    }
-
-    .music-toggle-button:hover {
-        transform: translateY(-5px); /* Mantém um pequeno movimento vertical */
+        bottom: 25px;
+        right: 25px;
+        padding: 12px 20px;
+        font-size: 1em;
     }
 }
