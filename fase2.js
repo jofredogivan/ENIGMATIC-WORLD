@@ -1,4 +1,4 @@
-// fase2.js - Lógica da Fase 2: Antiguidade Clássica (Grécia e Roma)
+// fase2.js - Lógica da Fase 2: Roma Antiga
 
 // --- Variáveis Globais ---
 let playerName = localStorage.getItem("playerName") || "Explorador";
@@ -34,69 +34,59 @@ const correctSound = document.getElementById("correctSound");
 const incorrectSound = document.getElementById("incorrectSound");
 
 
-// --- Banco de Perguntas da Fase 2 (Antiguidade Clássica: Grécia e Roma) ---
+// --- Banco de Perguntas da Fase 2 (Roma Antiga) ---
 const allPhase2Questions = [
     {
-        texto: "Qual cidade-estado grega é conhecida como o berço da democracia?",
-        correta: "Atenas",
-        alternativas: ["Esparta", "Corinto", "Tebas"]
+        texto: "Qual foi o fundador lendário de Roma, que matou seu irmão Remus?",
+        correta: "Rômulo",
+        alternativas: ["Júlio César", "Augusto", "Nero"]
     },
     {
-        texto: "Quem foi o filósofo grego, mestre de Platão, que foi condenado à morte por impiedade e corrupção da juventude?",
-        correta: "Sócrates",
-        alternativas: ["Aristóteles", "Pitágoras", "Heráclito"]
+        texto: "Qual foi o nome do sistema político que substituiu a monarquia em Roma, antes do império?",
+        correta: "República",
+        alternativas: ["Democracia", "Ditadura", "Feudalismo"]
     },
     {
-        texto: "Qual império antigo foi governado por imperadores como Júlio César e Augusto?",
-        correta: "Império Romano",
-        alternativas: ["Império Persa", "Império Macedônico", "Império Egípcio"]
-    },
-    {
-        texto: "Qual estrutura romana monumental era usada para combates de gladiadores e espetáculos públicos?",
+        texto: "Qual estrutura romana era usada para lutas de gladiadores e grandes espetáculos públicos?",
         correta: "Coliseu",
-        alternativas: ["Panteão", "Fórum Romano", "Arco do Triunfo"]
+        alternativas: ["Partenon", "Circo Máximo", "Fórum Romano"]
     },
     {
-        texto: "Quem foi o principal deus do Olimpo na mitologia grega, senhor dos deuses e dos homens?",
-        correta: "Zeus",
-        alternativas: ["Poseidon", "Hades", "Apolo"]
+        texto: "Quem foi o general cartaginês que atravessou os Alpes com elefantes para atacar Roma?",
+        correta: "Aníbal",
+        alternativas: ["Cipião Africano", "Alexandre, o Grande", "Brutus"]
     },
     {
-        texto: "Qual obra épica, atribuída a Homero, narra a Guerra de Troia?",
-        correta: "Ilíada",
-        alternativas: ["Odisseia", "Eneida", "Teogonia"]
+        texto: "Qual foi o idioma oficial do Império Romano?",
+        correta: "Latim",
+        alternativas: ["Grego", "Aramaico", "Hebraico"]
     },
     {
-        texto: "Qual grande general cartaginês liderou um exército com elefantes através dos Alpes para atacar Roma?",
-        correta: "Aníbal Barca",
-        alternativas: ["Alexandre, o Grande", "Ciro, o Grande", "Júlio César"]
+        texto: "Qual imperador romano é conhecido por ter dividido o império em Ocidente e Oriente?",
+        correta: "Diocleciano",
+        alternativas: ["Constantino", "Augusto", "Teodósio I"]
     },
     {
-        texto: "O que era a Acrópole de Atenas?",
-        correta: "A parte mais alta e fortificada da cidade, com templos",
-        alternativas: ["O principal porto de Atenas", "Um mercado central", "Uma escola de filosofia"]
+        texto: "Qual foi o nome dado às guerras entre Roma e Cartago?",
+        correta: "Guerras Púnicas",
+        alternativas: ["Guerras Médicas", "Guerras Gálicas", "Guerras Civis"]
     },
     {
-        texto: "Qual foi o nome do primeiro imperador romano?",
-        correta: "Augusto",
-        alternativas: ["Júlio César", "Nero", "Tibério"]
+        texto: "Quem foi o primeiro imperador romano?",
+        correta: "Otávio Augusto",
+        alternativas: ["Júlio César", "Marco Antônio", "Nero"]
     },
     {
-        texto: "Quem foi a figura histórica que, segundo a lenda, cruzou o Rubicão, um ponto sem retorno?",
-        correta: "Júlio César",
-        alternativas: ["Alexandre, o Grande", "Marco Antônio", "Bruto"]
+        texto: "Qual era a principal via de abastecimento de água para as cidades romanas?",
+        correta: "Aquedutos",
+        alternativas: ["Canais", "Represas", "Cisternas"]
     },
     {
-        texto: "Qual era o nome da assembleia popular na Roma Antiga onde os cidadãos votavam?",
-        correta: "Comícios",
-        alternativas: ["Senado", "Conselho da Plebe", "Assembleia dos Centuriões"]
-    },
-    {
-        texto: "Qual matemático grego é conhecido por seus elementos, que formam a base da geometria?",
-        correta: "Euclides",
-        alternativas: ["Pitágoras", "Arquimedes", "Tales"]
+        texto: "Qual famosa frase é atribuída a Júlio César após cruzar um rio proibido, iniciando uma guerra civil?",
+        correta: "Alea jacta est (A sorte está lançada)",
+        alternativas: ["Veni, vidi, vici (Vim, vi, venci)", "Et tu, Brute? (Até tu, Brutus?)", "Carpe Diem (Aproveite o dia)"]
     }
-    // Adicione mais perguntas aqui para enriquecer a fase!
+    // Adicione mais perguntas aqui para Roma Antiga
 ];
 
 // --- Funções Auxiliares Comuns ---
@@ -128,8 +118,13 @@ function playIncorrectSound() {
 
 // --- Funções de Lógica da Fase ---
 document.addEventListener("DOMContentLoaded", () => {
-    greetingElement.innerText = `Saudações, ${playerName}... Você chegou à Antiguidade Clássica!`;
-    descriptionElement.innerText = "Deixando as areias do Egito, você adentra os reinos da Grécia e Roma. Filosofia, impérios e batalhas épicas aguardam seus conhecimentos. Desvende os segredos para prosseguir!";
+    // Assegura que o jogador e os pontos totais são carregados
+    playerName = localStorage.getItem("playerName") || "Explorador";
+    totalPoints = parseInt(localStorage.getItem("totalPoints") || "0");
+    isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; // Atualiza a preferência de música
+
+    greetingElement.innerText = `Saudações, ${playerName}... Você chegou à Roma Antiga!`;
+    descriptionElement.innerText = "Gladiadores, imperadores e um império colossal! Navegue pelas intrigas e glórias de Roma para provar sua astúcia.";
 
     startPhaseBtn.addEventListener("click", () => {
         startQuizPhase();
@@ -196,10 +191,8 @@ function checkAnswer(selectedOption, correctAnswer, clickedButton) {
     nextActionButton.classList.remove("hidden");
     
     if (currentQuestionIndex === currentQuestionsForPhase.length - 1) {
-        // Ajuste este bloco para a fase 2 (vai para a fase 3)
-        // Este if/else só é realmente necessário na fase6.js
-        // Mas o mantemos para consistência se você quiser expandir a lógica.
-        if (window.location.pathname.includes('fase6.html')) { // Esta parte NÃO será verdadeira para fase2.js
+        // Esta condição só será verdadeira para fase6.js no final
+        if (window.location.pathname.includes('fase6.html')) { 
             nextActionButton.textContent = "Ver Resultados Finais";
             nextActionButton.onclick = finishGame;
         } else { 
@@ -214,8 +207,8 @@ function nextQuestion() {
     if (currentQuestionIndex < currentQuestionsForPhase.length) {
         displayQuestion();
     } else {
-        // Ajuste para a fase 2 (vai para a fase 3)
-        if (window.location.pathname.includes('fase6.html')) { // Esta parte NÃO será verdadeira para fase2.js
+        // Esta condição só será verdadeira para fase6.js no final
+        if (window.location.pathname.includes('fase6.html')) {
             finishGame();
         } else {
             advanceToNextPhase();
@@ -223,12 +216,26 @@ function nextQuestion() {
     }
 }
 
+// Para que a função advanceToNextPhase saiba qual é a fase atual,
+// precisamos extrair o número da fase do nome do arquivo (ex: fase2.js -> 2)
+const pathParts = window.location.pathname.split('/');
+const currentFileName = pathParts[pathParts.length - 1]; // ex: "fase2.html"
+const currentPhaseNumber = parseInt(currentFileName.replace('fase', '').replace('.html', ''));
+
 function advanceToNextPhase() {
     totalPoints += phaseScore;
     localStorage.setItem("totalPoints", totalPoints);
-    localStorage.setItem("currentPhase", 3); // Para fase2.js, a próxima é 3
-    window.location.href = `fase3.html`; // Para fase2.js, vai para fase3.html
+    const nextPhaseNumber = currentPhaseNumber + 1; 
+    localStorage.setItem("currentPhase", nextPhaseNumber); 
+
+    // --- IMPORTANTE: NAVEGAÇÃO AJUSTADA PARA IFRAME ---
+    // Diz ao pai (main.html) para carregar a próxima fase no iframe
+    if (window.parent && window.parent.document.getElementById('gameFrame')) {
+        window.parent.document.getElementById('gameFrame').src = `fase${nextPhaseNumber}.html`;
+    } else {
+        // Fallback para caso não esteja em um iframe (útil para testes diretos)
+        window.location.href = `fase${nextPhaseNumber}.html`;
+    }
 }
 
-// A função finishGame só deve ser chamada na última fase (fase6.js)
-// Por isso, ela não está definida aqui em fase2.js
+// A função finishGame é específica da fase6.js, não deve estar aqui.
