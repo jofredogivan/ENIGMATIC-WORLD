@@ -1,20 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enigmatic World - Jornada Concluída!</title>
+    <title>Enigmatic World - Fim da Aventura</title>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container end-screen">
-        <h2 id="finalGreeting"></h2>
-        <p>Sua jornada através das eras foi concluída!</p>
-        <p class="final-score">Pontuação Final: <span id="finalScoreDisplay">0</span> pontos</p>
-        <p id="finalMessage"></p>
-        <button id="restartGameBtn" class="next-button">Recomeçar Aventura</button>
+    <div class="final-screen-container">
+        <h2>FIM DA AVENTURA!</h2>
+        <p class="final-message">Parabéns, explorador! Você concluiu sua jornada pelo Enigmatic World.</p>
+        
+        <p class="final-score">Sua Pontuação Final: <span id="finalScoreDisplay">0</span></p>
+        
+        <button id="restartGameBtn" class="restart-button">Reiniciar Jogo</button>
     </div>
-    <script src="fase-final.js"></script>
+
+    <script>
+        const finalScoreDisplay = document.getElementById("finalScoreDisplay");
+        const restartGameBtn = document.getElementById("restartGameBtn");
+
+        // Recuperar a pontuação final (se você estiver salvando no localStorage)
+        const finalScore = localStorage.getItem("playerScore") || 0;
+        if (finalScoreDisplay) {
+            finalScoreDisplay.textContent = finalScore;
+        }
+
+        if (restartGameBtn) {
+            restartGameBtn.addEventListener("click", () => {
+                // Limpa o localStorage para um novo jogo
+                localStorage.removeItem("playerName");
+                localStorage.removeItem("playerScore");
+                localStorage.removeItem("currentQuestionIndex");
+                localStorage.removeItem("isMusicPlaying"); // Reseta o estado da música também
+                // Redireciona para o início do jogo (main.html ou index.html dentro do iframe)
+                // Use o caminho absoluto para garantir que funciona no GitHub Pages
+                window.parent.location.href = '/ENIGMATIC_WORLD2/main.html';
+            });
+        }
+    </script>
 </body>
 </html>
