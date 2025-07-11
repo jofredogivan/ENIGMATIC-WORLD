@@ -1,37 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enigmatic World - Fase 1: Egito Antigo</title>
+    <title>Enigmatic World - Fase 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container game-screen">
-        <h2 id="greeting"></h2>
+    <div class="question-area">
+        <p class="question-status">1/6</p>
+        <h3 class="enigma-title">🔍 ENIGMA:</h3>
+        <p class="pergunta-text">Em que ano a Revolução Francesa começou?</p>
         
-        <div id="story-intro">
-            <p id="descricao"></p>
-            <button id="startPhaseBtn" class="next-button">Começar Enigmas</button>
+        <div class="opcoes-container">
+            <button class="option-btn">1776</button>
+            <button class="option-btn correct-answer">1789</button>
+            <button class="option-btn">1812</button>
+            <button class="option-btn">1848</button>
         </div>
 
-        <div id="questionArea" class="hidden">
-            <p class="question-count"><span id="current-question-num"></span>/<span id="total-questions-num"></span></p>
-            <h3>🔎 Enigma:</h3>
-            <p id="pergunta"></p>
-            <div id="opcoes" class="options-grid"></div>
-            <div id="feedback" class="feedback-message"></div>
-        </div>
+        <p class="feedback-text feedback-correct hidden">✅ Correto! A Revolução Francesa começou em 1789.</p>
+        <p class="feedback-text feedback-incorrect hidden">❌ Incorreto! A resposta correta era 1789.</p>
+        
+        <button class="next-button hidden">Próxima Fase</button>
     </div>
-
-    <audio id="correctSound">
-        <source src="assets/sound_correct.mp3" type="audio/mpeg">
-        </audio>
-    <audio id="incorrectSound">
-        <source src="assets/sound_incorrect.mp3" type="audio/mpeg">
-        </audio>
-    
-    <script src="fase1.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
