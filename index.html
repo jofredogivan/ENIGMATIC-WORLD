@@ -1,31 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Enigmatic World - Início da Aventura</title>
-    <link href="style.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmatic World - Início</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container start-screen">
-        <h1 id="gameTitle">🌍 ENIGMATIC WORLD</h1>
+    <div class="intro-container">
+        <div class="header">
+            <img src="assets/globe.png" alt="Globo Enigmatic World" class="globe-icon">
+            <h1>ENIGMATIC WORLD</h1>
+        </div>
         <p>Prepare-se, explorador. A história espera por você!</p>
-        
-        <div class="input-group">
-            <input type="text" id="playerName" placeholder="Digite seu nome lendário..." aria-label="Digite seu nome"/>
+        <div class="input-area">
+            <input type="text" id="playerNameInput" placeholder="Seu nome">
             <button id="startGameBtn">Iniciar Aventura</button>
         </div>
-
-        <div class="audio-controls">
-            <button id="toggleMusicBtn">🎶 Música: Ligar</button>
-            <audio id="backgroundMusic" loop>
-                <source src="assets/music_theme.mp3" type="audio/mpeg">
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
-        </div>
-        
-        <p class="small-text">Sua jornada através das eras está prestes a começar.</p>
+        <p class="footer-text">Sua jornada através das eras está prestes a começar.</p>
     </div>
 
     <script src="script.js"></script>
