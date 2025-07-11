@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enigmatic World - Fase 6</title>
-    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Enigmatic World - Fase 6: Séculos XX e XXI</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="question-area">
-        <p class="question-status">6/6</p>
-        <h3 class="enigma-title">🔍 ENIGMA:</h3>
-        <p class="pergunta-text">Quem foi o principal líder da União Soviética durante a Segunda Guerra Mundial?</p>
+    <div class="container game-screen">
+        <h2 id="greeting"></h2>
         
-        <div class="opcoes-container">
-            <button class="option-btn">Vladimir Lenin</button>
-            <button class="option-btn correct-answer">Josef Stalin</button>
-            <button class="option-btn">Nikita Khrushchev</button>
-            <button class="option-btn">Mikhail Gorbachev</button>
+        <div id="story-intro">
+            <p id="descricao"></p>
+            <button id="startPhaseBtn" class="next-button">Começar Enigmas</button>
         </div>
 
-        <p class="feedback-text feedback-correct hidden">✅ Correto! Josef Stalin foi o líder da URSS na Segunda Guerra.</p>
-        <p class="feedback-text feedback-incorrect hidden">❌ Incorreto! A resposta correta era Josef Stalin.</p>
-        
-        <button class="next-button hidden">Finalizar Aventura</button>
+        <div id="questionArea" class="hidden">
+            <p class="question-count"><span id="current-question-num"></span>/<span id="total-questions-num"></span></p>
+            <h3>🔎 Enigma:</h3>
+            <p id="pergunta"></p>
+            <div id="opcoes" class="options-grid"></div>
+            <div id="feedback" class="feedback-message"></div>
+        </div>
     </div>
-    <script src="script.js"></script>
+
+    <audio id="correctSound">
+        <source src="assets/sound_correct.mp3" type="audio/mpeg">
+        <source src="assets/sound_correct.ogg" type="audio/ogg">
+    </audio>
+    <audio id="incorrectSound">
+        <source src="assets/sound_incorrect.mp3" type="audio/mpeg">
+        <source src="assets/sound_incorrect.ogg" type="audio/ogg">
+    </audio>
+    
+    <script src="fase6.js"></script>
 </body>
 </html>
