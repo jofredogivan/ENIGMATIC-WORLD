@@ -1,74 +1,75 @@
-/* style.css - Moderno e Responsivo */
+/* style.css - Visual "APK" e Responsivo */
 
-/* Importação de fontes do Google Fonts (Montserrat para títulos, Open Sans para texto) */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+/* Importação de fontes do Google Fonts (Roboto para corpo, Poppins para títulos) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600&display=swap');
 
-/* Reset básico para remover margens e preenchimentos padrão do navegador */
+/* Reset básico */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Evita barras de rolagem */
-    font-family: 'Open Sans', sans-serif; /* Fonte padrão mais moderna */
-    background: linear-gradient(to right, #6dd5ed, #2193b0); /* Gradiente de fundo suave */
+    overflow: hidden; /* Garante que não haverá barras de rolagem indesejadas */
+    font-family: 'Roboto', sans-serif; /* Fonte padrão */
+    background-color: #f0f2f5; /* Fundo cinza claro para uma aparência limpa */
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #333; /* Cor de texto padrão */
+    color: #333;
 }
 
-/* Contêiner principal do aplicativo (o que era o wrapper de pergaminho) */
+/* Contêiner principal do aplicativo (simula a tela de um app) */
 .app-container {
-    background-color: #ffffff; /* Fundo branco limpo */
-    border-radius: 12px; /* Cantos mais arredondados */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra mais suave e moderna */
-    width: 95%; /* Ocupa a maior parte da largura */
-    max-width: 800px; /* Largura máxima para desktops */
-    height: 90vh; /* Ocupa a maior parte da altura da viewport */
+    background-color: #ffffff; /* Fundo branco para o "apk" */
+    border-radius: 16px; /* Bordas bem arredondadas */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidade */
+    width: 100%; /* Ocupa 100% da largura em telas pequenas */
+    max-width: 480px; /* Largura máxima típica de um smartphone */
+    height: 100%; /* Ocupa 100% da altura em telas pequenas */
+    max-height: 800px; /* Altura máxima típica de um smartphone */
     display: flex;
-    flex-direction: column; /* Para empilhar o iframe */
-    overflow: hidden; /* Garante que o conteúdo não vaze */
-    position: relative; /* Para posicionamento absoluto de elementos filhos, como o botão de música */
+    flex-direction: column;
+    overflow: hidden; /* Esconde qualquer conteúdo que vaze */
+    position: relative; /* Essencial para o posicionamento absoluto do botão */
 }
 
-/* Estilo para o iframe dentro do app-container */
+/* Estilo para o iframe (conteúdo do jogo) */
 #gameFrame {
     width: 100%;
-    height: 100%; /* Ocupa 100% da altura disponível no app-container */
+    flex-grow: 1; /* Faz o iframe ocupar o espaço restante */
     border: none;
-    background-color: white; /* Garante fundo branco para cobrir o conteúdo do main.html */
+    background-color: white; /* Garante fundo branco para o conteúdo do iframe */
     display: block;
 }
 
-/* --- Estilos para o Botão de Música (no main.html) --- */
+/* --- Estilos para o Botão de Música --- */
 .music-toggle-button {
     position: absolute; /* Posição absoluta em relação ao .app-container */
     bottom: 20px; /* Distância do fundo */
     right: 20px; /* Distância da direita */
-    padding: 10px 18px;
-    background-color: #28a745; /* Verde moderno */
+    padding: 12px 20px;
+    background-color: #007bff; /* Azul padrão, vibrante e moderno */
     color: white;
     border: none;
-    border-radius: 25px; /* Botão arredondado */
-    font-size: 0.9em;
-    font-weight: 600;
+    border-radius: 30px; /* Forma de pílula */
+    font-size: 1em;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex; /* Para alinhar o ícone e o texto */
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); /* Sombra para o botão */
+    display: flex;
     align-items: center;
     gap: 8px; /* Espaço entre o ícone e o texto */
-    z-index: 10; /* Garante que esteja acima do iframe */
+    z-index: 10; /* Garante que o botão fique acima de tudo */
 }
 
 .music-toggle-button:hover {
-    background-color: #218838; /* Verde mais escuro no hover */
+    background-color: #0056b3; /* Azul mais escuro no hover */
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
 }
 
-/* --- Estilos para a Tela de Início (index.html) --- */
+/* --- Estilos para a Tela de Início (index.html) - dentro do iframe --- */
 .intro-container {
     display: flex;
     flex-direction: column;
@@ -76,91 +77,91 @@ body, html {
     align-items: center;
     height: 100%;
     width: 100%;
-    padding: 20px; /* Padding interno para telas menores */
-    box-sizing: border-box; /* Inclui padding na largura/altura */
-    background-color: #f0f8ff; /* Fundo mais claro para a intro */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff; /* Fundo branco para a intro */
 }
 
 .header {
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .globe-icon {
-    width: 90px; /* Ícone um pouco maior */
-    height: 90px;
-    margin-bottom: 15px;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
 }
 
 .intro-container h1 {
-    font-family: 'Montserrat', sans-serif; /* Fonte para título */
-    font-size: 2.8em; /* Ajustado para telas menores */
-    color: #2c3e50; /* Cinza escuro moderno */
-    text-shadow: none; /* Remove sombra de texto antiga */
+    font-family: 'Poppins', sans-serif; /* Fonte para título */
+    font-size: 2.5em;
+    color: #2c3e50;
     margin: 0;
     line-height: 1.2;
 }
 
 .intro-container p {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.1em;
     color: #555;
     margin-bottom: 25px;
-    max-width: 600px;
+    max-width: 400px;
+    text-align: center;
 }
 
 .input-area {
     display: flex;
-    flex-direction: column; /* Coloca input e botão em colunas para celular */
+    flex-direction: column;
     align-items: center;
-    gap: 15px; /* Espaço entre os elementos */
+    gap: 15px;
     width: 100%;
-    max-width: 350px; /* Limita a largura da área de input */
+    max-width: 300px;
 }
 
 .input-area input {
-    padding: 12px 18px;
-    border: 1px solid #ccc;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 1.1em;
-    width: 100%; /* Ocupa a largura total na coluna */
-    box-sizing: border-box; /* Inclui padding na largura */
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-area input:focus {
     border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
     outline: none;
 }
 
 .input-area button, .start-button {
-    padding: 12px 30px;
-    background-color: #007bff; /* Azul primário */
+    padding: 12px 25px;
+    background-color: #28a745; /* Verde para ação principal */
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 1.1em;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
-    width: 100%; /* Ocupa a largura total na coluna */
-    max-width: 250px; /* Limita largura do botão */
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+    width: 100%;
 }
 
 .input-area button:hover, .start-button:hover {
-    background-color: #0056b3;
+    background-color: #218838;
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
 }
 
 .footer-text {
     margin-top: 40px;
-    font-size: 0.9em;
+    font-size: 0.85em;
     color: #777;
 }
 
-/* --- Estilos para as Fases de Quiz (faseX.html) --- */
+/* --- Estilos para as Fases de Quiz (faseX.html) - dentro do iframe --- */
 .story-intro-container, .question-area, .final-screen-container {
     display: flex;
     flex-direction: column;
@@ -170,20 +171,20 @@ body, html {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
-    background-color: #f0f8ff; /* Fundo consistente */
+    background-color: #ffffff; /* Fundo branco consistente */
 }
 
 .story-intro-container h2, .final-screen-container h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.2em; /* Ajuste para mobile */
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
     color: #2c3e50;
     margin-bottom: 20px;
     text-align: center;
 }
 
 .story-intro-container p, .final-message {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1em; /* Ajuste para mobile */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
     color: #555;
     max-width: 600px;
     line-height: 1.6;
@@ -192,8 +193,8 @@ body, html {
 }
 
 .question-area h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.4em; /* Ajuste para mobile */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3em;
     color: #2c3e50;
     margin-bottom: 20px;
     text-align: center;
@@ -206,16 +207,16 @@ body, html {
 }
 
 .enigma-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.6em;
-    color: #34495e; /* Azul acinzentado */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
+    color: #34495e;
     margin-bottom: 25px;
     text-align: center;
 }
 
 .pergunta-text {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.1em;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
     color: #333;
     margin-bottom: 30px;
     max-width: 700px;
@@ -223,33 +224,34 @@ body, html {
 }
 
 .opcoes-container {
-    display: flex; /* Flexbox para layout responsivo */
-    flex-direction: column; /* Por padrão em coluna para mobile */
+    display: flex;
+    flex-direction: column; /* Sempre em coluna para mobile */
     gap: 12px;
     margin-bottom: 20px;
     width: 100%;
-    max-width: 450px; /* Limita largura para botões em desktop */
+    max-width: 350px; /* Limita largura para botões de opção */
 }
 
 .option-btn {
     padding: 15px 20px;
-    background-color: #6c757d; /* Cinza neutro */
-    color: white;
-    border: none;
-    border-radius: 8px;
+    background-color: #f8f8f8; /* Fundo mais claro para as opções */
+    color: #333;
+    border: 1px solid #eee;
+    border-radius: 10px; /* Mais arredondado */
     font-size: 1em;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Ocupa a largura total da coluna */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    width: 100%;
     text-align: center;
 }
 
 .option-btn:hover:not(:disabled) {
-    background-color: #5a6268;
+    background-color: #e9e9e9;
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    border-color: #ccc;
 }
 
 .option-btn:disabled {
@@ -258,17 +260,21 @@ body, html {
 }
 
 .option-btn.correct-answer {
-    background-color: #28a745; /* Verde */
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
 }
 
 .option-btn.incorrect-answer {
-    background-color: #dc3545; /* Vermelho */
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
 }
 
 .feedback-text {
     margin-top: 15px;
     font-size: 1.1em;
-    font-weight: bold;
+    font-weight: 600;
     text-align: center;
 }
 
@@ -287,7 +293,7 @@ body, html {
     border: none;
     border-radius: 8px;
     font-size: 1.1em;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     margin-top: 20px;
@@ -302,14 +308,14 @@ body, html {
 
 /* --- Estilos para a Tela Final (fase-final.html) --- */
 .final-score {
-    font-size: 1.8em;
+    font-size: 1.6em;
     color: #34495e;
     margin-bottom: 15px;
 }
 
 .restart-button {
     padding: 15px 30px;
-    background-color: #28a745; /* Verde para reiniciar */
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 10px;
@@ -332,61 +338,68 @@ body, html {
     display: none;
 }
 
-/* --- Media Queries para Responsividade --- */
+/* --- Media Queries para Responsividade (desktop) --- */
 @media (min-width: 768px) {
+    .app-container {
+        border-radius: 20px; /* Bordas um pouco mais suaves para desktop */
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+    }
+
     .intro-container h1 {
-        font-size: 3.5em; /* Tamanho maior para desktop */
+        font-size: 3.2em; /* Tamanho do título para desktop */
     }
 
     .story-intro-container h2, .final-screen-container h2 {
-        font-size: 3em;
+        font-size: 2.8em;
     }
 
     .input-area {
         flex-direction: row; /* Input e botão na mesma linha em desktop */
-        max-width: none;
-        width: auto;
+        gap: 10px;
+        max-width: none; /* Remove limitação de largura */
     }
 
     .input-area input {
-        width: 250px; /* Largura fixa para input em desktop */
+        width: 220px; /* Largura fixa para input em desktop */
     }
 
     .input-area button, .start-button {
-        width: auto; /* Largura automática para botão em desktop */
+        width: auto; /* Largura automática */
+        min-width: 150px; /* Largura mínima para o botão */
     }
 
     .opcoes-container {
         flex-direction: row; /* Opções em linha em desktop */
         flex-wrap: wrap; /* Permite quebrar linha se necessário */
         justify-content: center;
+        max-width: 600px; /* Aumenta a largura máxima para as opções */
     }
 
     .option-btn {
-        flex: 1 1 calc(50% - 12px); /* Duas colunas, considerando o gap */
-        max-width: 250px; /* Limite de largura para cada botão de opção */
+        flex: 1 1 calc(50% - 6px); /* Duas colunas, considerando o gap */
+        max-width: 280px; /* Limite de largura para cada botão de opção */
     }
 
     /* Posição do botão de música em tablets/desktops */
     .music-toggle-button {
         bottom: 30px;
         right: 30px;
-        font-size: 1em;
-        padding: 12px 20px;
+        font-size: 1.1em;
+        padding: 14px 25px;
     }
 }
 
 @media (min-width: 1024px) {
     .app-container {
         max-width: 960px; /* Largura máxima maior para telas grandes */
-        height: 85vh; /* Ajuste sutil na altura */
+        max-height: 90vh; /* Ajuste sutil na altura */
     }
 
     .intro-container h1 {
-        font-size: 4em;
+        font-size: 3.8em;
     }
 
     .story-intro-container h2, .final-screen-container h2 {
-        font-size: 3.5em;
+        font-size: 3.2em;
     }
 }
