@@ -11,10 +11,11 @@
     <div class="app-container">
         <audio id="backgroundMusic" loop>
             <source src="assets/music_theme.mp3" type="audio/mpeg">
-            Seu navegador não suporta o elemento de áudio.
+            Seu navegador não suporta o elemento de audio.
         </audio>
 
         <iframe id="gameFrame" src="index.html" style="width: 100%; height: 100%; border: none; background-color: transparent;"></iframe>
+
         <button id="toggleMusicBtn" class="music-toggle-button">🎶 Música: Ligar</button>
     </div>
 
@@ -23,18 +24,15 @@
         const toggleMusicBtn = document.getElementById("toggleMusicBtn");
         const gameFrame = document.getElementById("gameFrame");
 
-        // Logs de depuração (manter para garantir que os elementos são encontrados)
         console.log("backgroundMusic element:", backgroundMusic);
-        console.log("toggleMusicBtn element:", toggleMusicBtn); // Verifica se o botão foi encontrado no DOM
+        console.log("toggleMusicBtn element:", toggleMusicBtn);
 
         let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
         
-        // Define o texto inicial do botão, verificando se o botão existe
         if (toggleMusicBtn) { 
             toggleMusicBtn.textContent = isMusicPlaying ? "🎶 Música: Desligar" : "🎶 Música: Ligar";
         }
 
-        // Tenta tocar a música se o usuário deixou ligada da última vez
         if (isMusicPlaying) {
             if (backgroundMusic) { 
                 backgroundMusic.volume = 0.4;
@@ -49,10 +47,9 @@
             }
         }
 
-        // Adiciona o evento de clique ao botão de toggle
         if (toggleMusicBtn) { 
             toggleMusicBtn.addEventListener("click", () => {
-                console.log("Botão de música clicado!"); // Para depuração
+                console.log("Botão de música clicado!"); 
                 if (backgroundMusic && backgroundMusic.paused) {
                     backgroundMusic.volume = 0.4;
                     backgroundMusic.play().then(() => {
@@ -73,14 +70,12 @@
             console.error("Botão de música não encontrado no DOM! Verifique o ID e o carregamento do script.");
         }
 
-        // Listener para receber mensagens do iframe filho (faseX.js e fase-final.js)
         window.addEventListener('message', (event) => {
             if (event.source === gameFrame.contentWindow && event.data && event.data.type === 'toggleMusic') {
                 if (toggleMusicBtn) { toggleMusicBtn.click(); }
             }
         });
         
-        // Quando o iframe recarrega (ex: navegando para uma nova fase)
         gameFrame.addEventListener('load', () => {
             if (gameFrame.contentWindow) {
                 gameFrame.contentWindow.postMessage({
@@ -90,7 +85,6 @@
             }
         });
 
-        // Dispara o evento de carregamento para o estado inicial, caso o iframe já esteja carregado.
         if (gameFrame.contentWindow && gameFrame.contentWindow.document.readyState === 'complete') {
             gameFrame.contentWindow.postMessage({
                 type: 'musicState',
