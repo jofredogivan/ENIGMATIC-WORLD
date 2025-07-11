@@ -21,7 +21,6 @@
         const finalScoreDisplay = document.getElementById("finalScoreDisplay");
         const restartGameBtn = document.getElementById("restartGameBtn");
 
-        // Recuperar a pontuação final (se você estiver salvando no localStorage)
         const finalScore = localStorage.getItem("playerScore") || 0;
         if (finalScoreDisplay) {
             finalScoreDisplay.textContent = finalScore;
@@ -29,13 +28,10 @@
 
         if (restartGameBtn) {
             restartGameBtn.addEventListener("click", () => {
-                // Limpa o localStorage para um novo jogo
                 localStorage.removeItem("playerName");
                 localStorage.removeItem("playerScore");
                 localStorage.removeItem("currentQuestionIndex");
-                localStorage.removeItem("isMusicPlaying"); // Reseta o estado da música também
-                // Redireciona para o início do jogo (main.html ou index.html dentro do iframe)
-                // Use o caminho absoluto para garantir que funciona no GitHub Pages
+                localStorage.removeItem("isMusicPlaying");
                 window.parent.location.href = '/ENIGMATIC_WORLD2/main.html';
             });
         }
