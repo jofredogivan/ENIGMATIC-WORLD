@@ -1,4 +1,7 @@
-/* style.css */
+/* style.css - Moderno e Responsivo */
+
+/* Importação de fontes do Google Fonts (Montserrat para títulos, Open Sans para texto) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
 
 /* Reset básico para remover margens e preenchimentos padrão do navegador */
 body, html {
@@ -7,316 +10,383 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden; /* Evita barras de rolagem */
-    font-family: 'Times New Roman', Times, serif;
-    background-color: #d4a974; /* Cor de fundo padrão do body (fora do pergaminho) */
-    display: flex; /* Para centralizar o game-wrapper */
+    font-family: 'Open Sans', sans-serif; /* Fonte padrão mais moderna */
+    background: linear-gradient(to right, #6dd5ed, #2193b0); /* Gradiente de fundo suave */
+    display: flex;
     justify-content: center;
     align-items: center;
+    color: #333; /* Cor de texto padrão */
 }
 
-/* Novo wrapper para aplicar o estilo de pergaminho ao redor de tudo */
-.game-wrapper {
-    background-color: #f8f0e3; /* Um tom mais claro para o "papel" */
-    border: 5px solid #8B4513; /* Borda marrom, como um livro antigo */
-    border-radius: 15px;
-    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.4); /* Sombra para dar profundidade */
-    padding: 20px; /* Padding ao redor do game-container e do botão de música */
-    text-align: center;
-    max-width: 800px; /* Largura máxima para o wrapper do jogo */
-    width: 90%; /* Adapta-se à largura da tela */
+/* Contêiner principal do aplicativo (o que era o wrapper de pergaminho) */
+.app-container {
+    background-color: #ffffff; /* Fundo branco limpo */
+    border-radius: 12px; /* Cantos mais arredondados */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra mais suave e moderna */
+    width: 95%; /* Ocupa a maior parte da largura */
+    max-width: 800px; /* Largura máxima para desktops */
     height: 90vh; /* Ocupa a maior parte da altura da viewport */
-    display: flex; /* Para organizar o container e o botão */
-    flex-direction: column;
-    justify-content: space-between; /* Espaçamento entre o game-container e o botão */
-    align-items: center;
-    position: relative; /* Para posicionar o botão de música dentro dele */
+    display: flex;
+    flex-direction: column; /* Para empilhar o iframe */
+    overflow: hidden; /* Garante que o conteúdo não vaze */
+    position: relative; /* Para posicionamento absoluto de elementos filhos, como o botão de música */
 }
 
-/* O game-container agora é onde o iframe fica */
-.game-container {
-    width: 100%; /* Ocupa a largura total do game-wrapper */
-    flex-grow: 1; /* Permite que ele cresça e ocupe o espaço disponível */
-    display: flex; /* Para o iframe ocupar 100% */
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Garante que o iframe não vaze */
-}
-
-
-/* Estilo para o iframe dentro do game-container */
-/* Isso é crucial para cobrir o conteúdo de main.html e garantir que o iframe seja responsivo */
+/* Estilo para o iframe dentro do app-container */
 #gameFrame {
     width: 100%;
-    height: 100%;
-    border: none; /* Remove a borda padrão do iframe */
-    /* background-color: white; /* Já está inline no HTML, mantendo para referência */
-    display: block; /* Garante que não há espaços indesejados */
+    height: 100%; /* Ocupa 100% da altura disponível no app-container */
+    border: none;
+    background-color: white; /* Garante fundo branco para cobrir o conteúdo do main.html */
+    display: block;
 }
-
 
 /* --- Estilos para o Botão de Música (no main.html) --- */
 .music-toggle-button {
-    /* Posicionamento relativo ao .game-wrapper */
-    margin-top: 20px; /* Espaço entre o iframe e o botão */
-    padding: 10px 20px;
-    background-color: #8B4513; /* Marrom escuro */
+    position: absolute; /* Posição absoluta em relação ao .app-container */
+    bottom: 20px; /* Distância do fundo */
+    right: 20px; /* Distância da direita */
+    padding: 10px 18px;
+    background-color: #28a745; /* Verde moderno */
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 1em;
+    border-radius: 25px; /* Botão arredondado */
+    font-size: 0.9em;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex; /* Para alinhar o ícone e o texto */
+    align-items: center;
+    gap: 8px; /* Espaço entre o ícone e o texto */
+    z-index: 10; /* Garante que esteja acima do iframe */
 }
 
 .music-toggle-button:hover {
-    background-color: #6f370f;
+    background-color: #218838; /* Verde mais escuro no hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
-
-/* --- Estilos para a Tela de Início (index.html) - Mantidos do seu original --- */
+/* --- Estilos para a Tela de Início (index.html) --- */
 .intro-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%; /* Garante que o conteúdo da intro ocupe todo o iframe */
+    height: 100%;
     width: 100%;
-    /* Removi padding e background-color daqui, pois agora o game-wrapper e game-container já fornecem o estilo de pergaminho */
+    padding: 20px; /* Padding interno para telas menores */
+    box-sizing: border-box; /* Inclui padding na largura/altura */
+    background-color: #f0f8ff; /* Fundo mais claro para a intro */
 }
 
 .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .globe-icon {
-    width: 80px; /* Tamanho maior para o globo */
-    height: 80px;
-    margin-bottom: 10px;
+    width: 90px; /* Ícone um pouco maior */
+    height: 90px;
+    margin-bottom: 15px;
 }
 
 .intro-container h1 {
-    font-family: 'Cinzel Decorative', cursive; /* Fonte mais decorativa, se disponível */
-    font-size: 3em;
-    color: #4a2c0f; /* Marrom escuro para o título */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Montserrat', sans-serif; /* Fonte para título */
+    font-size: 2.8em; /* Ajustado para telas menores */
+    color: #2c3e50; /* Cinza escuro moderno */
+    text-shadow: none; /* Remove sombra de texto antiga */
     margin: 0;
+    line-height: 1.2;
 }
 
 .intro-container p {
-    font-size: 1.2em;
-    color: #6d4b2e;
-    margin-bottom: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 25px;
+    max-width: 600px;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column; /* Coloca input e botão em colunas para celular */
+    align-items: center;
+    gap: 15px; /* Espaço entre os elementos */
+    width: 100%;
+    max-width: 350px; /* Limita a largura da área de input */
 }
 
 .input-area input {
-    padding: 10px 15px;
-    margin-right: 10px;
-    border: 2px solid #8B4513;
+    padding: 12px 18px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    font-size: 1em;
-    width: 200px;
+    font-size: 1.1em;
+    width: 100%; /* Ocupa a largura total na coluna */
+    box-sizing: border-box; /* Inclui padding na largura */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-area input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
 .input-area button, .start-button {
-    padding: 12px 25px;
-    background-color: #e0ac4e; /* Amarelo ouro */
+    padding: 12px 30px;
+    background-color: #007bff; /* Azul primário */
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 1.1em;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    width: 100%; /* Ocupa a largura total na coluna */
+    max-width: 250px; /* Limita largura do botão */
 }
 
 .input-area button:hover, .start-button:hover {
-    background-color: #c99846;
+    background-color: #0056b3;
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
 }
 
 .footer-text {
-    margin-top: 30px;
+    margin-top: 40px;
     font-size: 0.9em;
-    color: #a07d57;
+    color: #777;
 }
 
 /* --- Estilos para as Fases de Quiz (faseX.html) --- */
-.story-intro-container, .question-area {
+.story-intro-container, .question-area, .final-screen-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%; /* Garante que a fase ocupe todo o iframe */
+    height: 100%;
     width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f0f8ff; /* Fundo consistente */
 }
 
-.story-intro-container h2 {
-    font-family: 'Cinzel Decorative', cursive;
-    font-size: 2.5em;
-    color: #4a2c0f;
+.story-intro-container h2, .final-screen-container h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2em; /* Ajuste para mobile */
+    color: #2c3e50;
     margin-bottom: 20px;
+    text-align: center;
 }
 
-.story-intro-container p {
-    font-size: 1.1em;
-    color: #6d4b2e;
+.story-intro-container p, .final-message {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em; /* Ajuste para mobile */
+    color: #555;
     max-width: 600px;
     line-height: 1.6;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    text-align: center;
 }
 
 .question-area h3 {
-    font-size: 1.5em;
-    color: #4a2c0f;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4em; /* Ajuste para mobile */
+    color: #2c3e50;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .question-status {
-    font-size: 0.9em;
-    color: #a07d57;
+    font-size: 0.8em;
+    color: #777;
     margin-bottom: 15px;
 }
 
 .enigma-title {
-    font-family: 'Cinzel Decorative', cursive;
-    font-size: 1.8em;
-    color: #8B4513;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6em;
+    color: #34495e; /* Azul acinzentado */
     margin-bottom: 25px;
+    text-align: center;
 }
 
 .pergunta-text {
-    font-size: 1.3em;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1em;
     color: #333;
     margin-bottom: 30px;
     max-width: 700px;
+    text-align: center;
 }
 
 .opcoes-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Duas colunas */
-    gap: 15px; /* Espaçamento entre os botões */
+    display: flex; /* Flexbox para layout responsivo */
+    flex-direction: column; /* Por padrão em coluna para mobile */
+    gap: 12px;
     margin-bottom: 20px;
-    max-width: 600px;
     width: 100%;
+    max-width: 450px; /* Limita largura para botões em desktop */
 }
 
 .option-btn {
     padding: 15px 20px;
-    background-color: #e0ac4e;
+    background-color: #6c757d; /* Cinza neutro */
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 1em;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ocupa a largura total da coluna */
+    text-align: center;
 }
 
 .option-btn:hover:not(:disabled) {
-    background-color: #c99846;
+    background-color: #5a6268;
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .option-btn:disabled {
     cursor: not-allowed;
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 .option-btn.correct-answer {
-    background-color: #4CAF50; /* Verde */
+    background-color: #28a745; /* Verde */
 }
 
 .option-btn.incorrect-answer {
-    background-color: #f44336; /* Vermelho */
+    background-color: #dc3545; /* Vermelho */
 }
 
 .feedback-text {
     margin-top: 15px;
     font-size: 1.1em;
     font-weight: bold;
+    text-align: center;
 }
 
 .feedback-correct {
-    color: #4CAF50;
+    color: #28a745;
 }
 
 .feedback-incorrect {
-    color: #f44336;
+    color: #dc3545;
 }
 
 .next-button {
     padding: 12px 25px;
-    background-color: #8B4513; /* Marrom para o próximo */
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 1.1em;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     margin-top: 20px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
 .next-button:hover {
-    background-color: #6f370f;
+    background-color: #0056b3;
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
 }
 
 /* --- Estilos para a Tela Final (fase-final.html) --- */
-.final-screen-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
-.final-screen-container h2 {
-    font-family: 'Cinzel Decorative', cursive;
-    font-size: 2.8em;
-    color: #4a2c0f;
-    margin-bottom: 20px;
-}
-
 .final-score {
     font-size: 1.8em;
-    color: #8B4513;
+    color: #34495e;
     margin-bottom: 15px;
-}
-
-.final-message {
-    font-size: 1.2em;
-    color: #6d4b2e;
-    max-width: 600px;
-    line-height: 1.6;
-    margin-bottom: 30px;
 }
 
 .restart-button {
     padding: 15px 30px;
-    background-color: #e0ac4e;
+    background-color: #28a745; /* Verde para reiniciar */
     color: white;
     border: none;
     border-radius: 10px;
     font-size: 1.2em;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
 }
 
 .restart-button:hover {
-    background-color: #c99846;
+    background-color: #218838;
     transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
 }
 
 
 /* --- Utilitários --- */
 .hidden {
     display: none;
+}
+
+/* --- Media Queries para Responsividade --- */
+@media (min-width: 768px) {
+    .intro-container h1 {
+        font-size: 3.5em; /* Tamanho maior para desktop */
+    }
+
+    .story-intro-container h2, .final-screen-container h2 {
+        font-size: 3em;
+    }
+
+    .input-area {
+        flex-direction: row; /* Input e botão na mesma linha em desktop */
+        max-width: none;
+        width: auto;
+    }
+
+    .input-area input {
+        width: 250px; /* Largura fixa para input em desktop */
+    }
+
+    .input-area button, .start-button {
+        width: auto; /* Largura automática para botão em desktop */
+    }
+
+    .opcoes-container {
+        flex-direction: row; /* Opções em linha em desktop */
+        flex-wrap: wrap; /* Permite quebrar linha se necessário */
+        justify-content: center;
+    }
+
+    .option-btn {
+        flex: 1 1 calc(50% - 12px); /* Duas colunas, considerando o gap */
+        max-width: 250px; /* Limite de largura para cada botão de opção */
+    }
+
+    /* Posição do botão de música em tablets/desktops */
+    .music-toggle-button {
+        bottom: 30px;
+        right: 30px;
+        font-size: 1em;
+        padding: 12px 20px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .app-container {
+        max-width: 960px; /* Largura máxima maior para telas grandes */
+        height: 85vh; /* Ajuste sutil na altura */
+    }
+
+    .intro-container h1 {
+        font-size: 4em;
+    }
+
+    .story-intro-container h2, .final-screen-container h2 {
+        font-size: 3.5em;
+    }
 }
