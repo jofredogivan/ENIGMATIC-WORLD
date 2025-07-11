@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enigmatic World</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="game-wrapper"> <div class="game-container">
-            <audio id="backgroundMusic" loop>
-                <source src="assets/music_theme.mp3" type="audio/mpeg">
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
+    <div class="app-container"> <audio id="backgroundMusic" loop>
+            <source src="assets/music_theme.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
 
-            <iframe id="gameFrame" src="index.html" style="width: 100%; height: 100%; border: none; background-color: white;"></iframe>
-        </div>
-
-        <button id="toggleMusicBtn" class="music-toggle-button">🎶 Música: Ligar</button>
+        <iframe id="gameFrame" src="index.html" style="width: 100%; height: 100%; border: none; background-color: white;"></iframe>
     </div>
+
+    <button id="toggleMusicBtn" class="music-toggle-button">🎶 Música: Ligar</button>
 
     <script>
         const backgroundMusic = document.getElementById("backgroundMusic");
@@ -32,7 +31,7 @@
             backgroundMusic.volume = 0.4;
             backgroundMusic.play().catch(e => {
                 console.warn("Autoplay de música bloqueado pelo navegador:", e);
-                isMusicPlaying = false; // Ajusta o estado se o autoplay falhar
+                isMusicPlaying = false; 
                 localStorage.setItem("isMusicPlaying", isMusicPlaying);
                 toggleMusicBtn.textContent = "🎶 Música: Ligar";
             });
@@ -56,17 +55,14 @@
             localStorage.setItem("isMusicPlaying", isMusicPlaying);
         });
 
-        // Listener para receber mensagens do iframe filho (faseX.js e fase-final.js)
         window.addEventListener('message', (event) => {
             if (event.source === gameFrame.contentWindow && event.data && event.data.type === 'toggleMusic') {
-                toggleMusicBtn.click(); // Simula um clique no botão de música
+                toggleMusicBtn.click(); 
             }
         });
         
-        // Quando o iframe recarrega (ex: navegando para uma nova fase)
         gameFrame.addEventListener('load', () => {
             if (gameFrame.contentWindow) {
-                // Envia o estado atual da música para o iframe recém-carregado
                 gameFrame.contentWindow.postMessage({
                     type: 'musicState',
                     isPlaying: isMusicPlaying
@@ -74,7 +70,6 @@
             }
         });
 
-        // Dispara o evento de carregamento para o estado inicial, caso o iframe já esteja carregado.
         if (gameFrame.contentWindow && gameFrame.contentWindow.document.readyState === 'complete') {
             gameFrame.contentWindow.postMessage({
                 type: 'musicState',
