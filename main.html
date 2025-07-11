@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Enigmatic World</title>
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos básicos para o container principal e o iframe */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; /* Evita barras de rolagem desnecessárias */
+            height: 100vh; /* Garante que o body ocupe a altura total da viewport */
+            display: flex; /* Para alinhar o iframe */
+            flex-direction: column;
+        }
+        iframe {
+            flex-grow: 1; /* Faz o iframe ocupar o espaço restante */
+            width: 100%;
+            border: none; /* Remove a borda padrão do iframe */
+        }
+        .main-audio-controls {
+            position: fixed; /* Fixa o controle de áudio na tela */
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000; /* Garante que fique acima de outros elementos */
+        }
+        .main-audio-controls button {
+            background-color: #4b0082; /* Índigo */
+            color: #ffffff;
+            border: 2px solid #8a2be2; /* Azul violeta */
+            padding: 10px 20px;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .main-audio-controls button:hover {
+            background-color: #6a0dad; /* Púrpura */
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <iframe id="gameFrame" src="index.html"></iframe>
+
+    <div class="main-audio-controls">
+        <button id="toggleMusicBtn">🎶 Música: Ligar</button>
+        <audio id="backgroundMusic" loop>
+            <source src="assets/music_theme.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+    </div>
+
+    <script>
+        const backgroundMusic = document.getElementById("backgroundMusic");
+        const toggleMusicBtn = document.getElementById("toggleMusicBtn");
+        const gameFrame = document.getElementById("gameFrame");
+
+        // Carrega a preferência de áudio do usuário do localStorage
+        let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
+        
+        // Atualiza o texto do botão com base na preferência
+        toggleMusicBtn.textContent = isMusicPlaying ? "🎶 Música: Desligar" : "🎶 Música: Ligar";
+
+        // Tenta tocar a música se estiver configurada para ligar
+        // NOTA: Navegadores podem bloquear autoplay. A primeira interação do usuário ajudará.
+        if (isMusicPlaying) {
+            backgroundMusic.volume = 0.4; // Volume inicial
+            backgroundMusic.play().catch(e => console.warn("Erro ao tentar tocar música automaticamente:", e));
+        }
+
+        // Adiciona o listener para o botão de toggle
+        toggleMusicBtn.addEventListener("click", () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.volume = 0.4;
+                backgroundMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    toggleMusicBtn.textContent = "🎶 Música: Desligar";
+                }).catch(e => {
+                    console.error("Erro ao tocar música:", e);
+                    // Adicione um feedback ao usuário se o autoplay for bloqueado
+                    alert("O navegador pode ter bloqueado a reprodução automática. Por favor, interaja novamente ou verifique as configurações de mídia.");
+                });
+            } else {
+                backgroundMusic.pause();
+                isMusicPlaying = false;
+                toggleMusicBtn.textContent = "🎶 Música: Ligar";
+            }
+            localStorage.setItem("isMusicPlaying", isMusicPlaying); // Salva a preferência
+        });
+
+        // Opcional: Para controlar a música a partir do script.js ou faseX.js dentro do iframe.
+        // Isso não é estritamente necessário para o controle de autoplay, mas pode ser útil para outras interações.
+        window.addEventListener('message', (event) => {
+            // Verifica se a mensagem veio do nosso iframe e tem um tipo esperado
+            if (event.source === gameFrame.contentWindow && event.data && event.data.type === 'toggleMusic') {
+                toggleMusicBtn.click(); // Simula o clique no botão de toggle
+            }
+        });
+    </script>
+</body>
+</html>
