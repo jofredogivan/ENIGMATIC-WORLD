@@ -1,9 +1,10 @@
-// fase1.js - Lógica da Fase 1: Egito Antigo (AGORA SEM MÚSICA ESPECÍFICA DA FASE)
+// fase1.js - Lógica da Fase 1: Egito Antigo
 
 // --- Variáveis Globais ---
 let playerName = localStorage.getItem("playerName") || "Explorador";
 let totalPoints = parseInt(localStorage.getItem("totalPoints") || "0");
-// isMusicPlaying ainda é necessário para controlar os SONS DE FEEDBACK
+// NOTA: 'isMusicPlaying' é lida aqui para o controle dos sons de feedback,
+// mas a música de fundo é controlada pelo 'main.html'
 let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
 
 // --- Variáveis de Controle da Fase ---
@@ -30,7 +31,7 @@ nextActionButton.id = "nextActionButton";
 nextActionButton.classList.add("hidden", "next-button");
 feedbackElement.parentNode.insertBefore(nextActionButton, feedbackElement.nextSibling);
 
-// Remova: const phaseMusic = document.getElementById("phaseMusic"); 
+// Referências aos elementos de áudio (apenas para feedback)
 const correctSound = document.getElementById("correctSound");
 const incorrectSound = document.getElementById("incorrectSound");
 
@@ -38,59 +39,54 @@ const incorrectSound = document.getElementById("incorrectSound");
 // --- Banco de Perguntas da Fase 1 (Egito Antigo) ---
 const allPhase1Questions = [
     {
-        texto: "No Egito Antigo, eu media a vida e a morte, guiava plantações e controlava o Nilo. O que sou?",
-        correta: "O tempo",
-        alternativas: ["O ouro", "O sol", "A areia"]
-    },
-    {
-        texto: "Sou um símbolo de poder eterno, abrigo os reis e conto histórias em pedra. O que sou?",
-        correta: "A pirâmide",
-        alternativas: ["O templo", "A esfinge", "O trono"]
-    },
-    {
-        texto: "Numa vida após a morte, eu era pesado contra a pena da verdade. O que sou?",
-        correta: "O coração",
-        alternativas: ["A alma", "A mente", "O espírito"]
-    },
-    {
-        texto: "Sou uma divindade solar, reverenciada como criador e mantenedor da vida no Egito.",
-        correta: "Rá",
-        alternativas: ["Osíris", "Hórus", "Anúbis"]
-    },
-    {
-        texto: "Escrita sagrada egípcia usada em templos e túmulos.",
-        correta: "Hieróglifos",
-        alternativas: ["Cuneiforme", "Latim", "Runas"]
-    },
-    {
-        texto: "Qual rio foi a espinha dorsal da civilização egípcia?",
+        texto: "Qual rio era a principal fonte de vida e civilização para o Egito Antigo?",
         correta: "Nilo",
         alternativas: ["Tigre", "Eufrates", "Jordão"]
     },
     {
-        texto: "Animal sagrado no Egito Antigo, frequentemente mumificado e adorado.",
+        texto: "Qual era o nome do governante supremo do Egito Antigo, considerado um deus na terra?",
+        correta: "Faraó",
+        alternativas: ["Imperador", "Rei", "Czar"]
+    },
+    {
+        texto: "Qual estrutura monumental era construída como túmulo para os faraós?",
+        correta: "Pirâmide",
+        alternativas: ["Templo", "Zigurate", "Obelisco"]
+    },
+    {
+        texto: "Qual processo era usado pelos egípcios para preservar os corpos dos mortos?",
+        correta: "Mumificação",
+        alternativas: ["Embalsamamento", "Cremalheira", "Taxidermia"]
+    },
+    {
+        texto: "Qual animal era considerado sagrado e frequentemente associado à deusa Bastet?",
         correta: "Gato",
-        alternativas: ["Cachorro", "Serpente", "Macaco"]
+        alternativas: ["Cão", "Falcão", "Escorpião"]
     },
     {
-        texto: "Objeto funerário que guardava os órgãos internos mumificados dos faraós.",
-        correta: "Vaso Canópico",
-        alternativas: ["Sarcófago", "Amuleto", "Papiro"]
+        texto: "Qual material os egípcios usavam para escrever, feito de uma planta aquática?",
+        correta: "Papiro",
+        alternativas: ["Pergaminho", "Códex", "Tabuleta de argila"]
     },
     {
-        texto: "Qual faraó unificou o Alto e Baixo Egito, tornando-se o primeiro faraó?",
-        correta: "Narmer",
-        alternativas: ["Menés", "Djoser", "Quéops"]
+        texto: "Qual deus egípcio era associado ao sol e muitas vezes retratado com cabeça de falcão?",
+        correta: "Rá",
+        alternativas: ["Osíris", "Anúbis", "Hórus"]
     },
     {
-        texto: "As tumbas dos faraós mais famosos no Vale dos Reis são um exemplo de qual arte funerária egípcia?",
-        correta: "Hipogeus",
-        alternativas: ["Mastabas", "Pirâmides", "Cenotáfios"] 
+        texto: "Qual rainha egípcia é famosa por seus relacionamentos com Júlio César e Marco Antônio?",
+        correta: "Cleópatra",
+        alternativas: ["Nefertiti", "Hatshepsut", "Tiy"]
     },
     {
-        texto: "Qual era o nome da rainha egípcia que governou como faraó e se vestia como homem?",
-        correta: "Hatshepsut",
-        alternativas: ["Cleópatra", "Nefertiti", "Ankhesenamun"]
+        texto: "Qual era o tipo de escrita sagrada usada pelos antigos egípcios, composta por símbolos e imagens?",
+        correta: "Hieróglifos",
+        alternativas: ["Cuneiforme", "Demótico", "Arábica"]
+    },
+    {
+        texto: "Qual era a função principal da Esfinge de Gizé?",
+        correta: "Proteger as pirâmides",
+        alternativas: ["Local de sacrifícios", "Observatório astronômico", "Mercado"]
     }
 ];
 
@@ -101,10 +97,8 @@ function selectRandomQuestions(sourceArray, numQuestions) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return shuffled.slice(0, Math.min(numQuestions, allPhase1Questions.length));
+    return shuffled.slice(0, Math.min(numQuestions, sourceArray.length));
 }
-
-// Remova: Função para tocar música da fase
 
 // Funções para tocar efeitos sonoros (Mantenha estas!)
 function playCorrectSound() {
@@ -125,11 +119,15 @@ function playIncorrectSound() {
 
 // --- Funções de Lógica da Fase ---
 document.addEventListener("DOMContentLoaded", () => {
-    greetingElement.innerText = `Saudações, ${playerName}...`;
-    descriptionElement.innerText = "Você despertou nas areias eternas do Egito Antigo, sob o olhar vigilante dos faraós. Desvende os enigmas que guardam os segredos deste reino milenar para prosseguir em sua jornada.";
+    // Assegura que o jogador e os pontos totais são carregados
+    playerName = localStorage.getItem("playerName") || "Explorador";
+    totalPoints = parseInt(localStorage.getItem("totalPoints") || "0");
+    isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; // Atualiza a preferência de música
+
+    greetingElement.innerText = `Saudações, ${playerName}... Você chegou ao Egito Antigo!`;
+    descriptionElement.innerText = "As areias do tempo revelam segredos milenares. Desvende os mistérios dos faraós e das pirâmides para provar seu valor e avançar!";
 
     startPhaseBtn.addEventListener("click", () => {
-        // Remova: playPhaseMusic(); 
         startQuizPhase();
     });
 });
@@ -194,7 +192,7 @@ function checkAnswer(selectedOption, correctAnswer, clickedButton) {
     nextActionButton.classList.remove("hidden");
     
     if (currentQuestionIndex === currentQuestionsForPhase.length - 1) {
-        // Ajuste este bloco para cada fase, pois cada uma aponta para a próxima
+        // Isso só é verdade para fase6.js, mas mantemos a condição
         if (window.location.pathname.includes('fase6.html')) { 
             nextActionButton.textContent = "Ver Resultados Finais";
             nextActionButton.onclick = finishGame;
@@ -210,6 +208,7 @@ function nextQuestion() {
     if (currentQuestionIndex < currentQuestionsForPhase.length) {
         displayQuestion();
     } else {
+        // Isso só é verdade para fase6.js, mas mantemos a condição
         if (window.location.pathname.includes('fase6.html')) {
             finishGame();
         } else {
@@ -219,12 +218,26 @@ function nextQuestion() {
 }
 
 function advanceToNextPhase() {
-    // Remova: phaseMusic.pause(); 
     totalPoints += phaseScore;
     localStorage.setItem("totalPoints", totalPoints);
-    localStorage.setItem("currentPhase", 2); // Para fase1.js, a próxima é 2
-    window.location.href = `fase2.html`; // Para fase1.js, vai para fase2.html
+    const nextPhaseNumber = currentPhaseNumber + 1; // Precisamos do número da fase atual
+    localStorage.setItem("currentPhase", nextPhaseNumber); 
+
+    // --- IMPORTANTE: NAVEGAÇÃO AJUSTADA PARA IFRAME ---
+    // Diz ao pai (main.html) para carregar a próxima fase no iframe
+    if (window.parent && window.parent.document.getElementById('gameFrame')) {
+        window.parent.document.getElementById('gameFrame').src = `fase${nextPhaseNumber}.html`;
+    } else {
+        // Fallback para caso não esteja em um iframe
+        window.location.href = `fase${nextPhaseNumber}.html`;
+    }
 }
 
-// A função finishGame só deve ser chamada na última fase (fase6.js)
-// function finishGame() { /* ... */ }
+// Para que a função advanceToNextPhase saiba qual é a fase atual,
+// precisamos extrair o número da fase do nome do arquivo (ex: fase1.js -> 1)
+const pathParts = window.location.pathname.split('/');
+const currentFileName = pathParts[pathParts.length - 1]; // ex: "fase1.html"
+const currentPhaseNumber = parseInt(currentFileName.replace('fase', '').replace('.html', ''));
+
+// A função finishGame só deve ser definida e chamada em fase6.js
+// Ela não é necessária aqui em fase1.js (ou outras fases intermediárias)
