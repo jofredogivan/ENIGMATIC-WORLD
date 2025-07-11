@@ -6,22 +6,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const backgroundMusic = document.getElementById("backgroundMusic");
     const toggleMusicBtn = document.getElementById("toggleMusicBtn");
 
+    // Opcional: Carrega o nome do jogador se já existia de uma sessão anterior
     const storedPlayerName = localStorage.getItem("playerName");
     if (storedPlayerName) {
         playerNameInput.value = storedPlayerName;
     }
 
+    // Carrega a preferência de áudio do usuário (true se estava ligado, false se desligado)
     let isMusicPlaying = localStorage.getItem("isMusicPlaying") === "true"; 
 
+    // Atualiza o texto do botão de áudio baseado na preferência salva
     toggleMusicBtn.textContent = isMusicPlaying ? "🎶 Música: Desligar" : "🎶 Música: Ligar";
     
-    // Tenta tocar a música se estava tocando antes.
+    // Se a música estava tocando, tenta iniciar (pode ser bloqueado pelo navegador sem interação)
     if (isMusicPlaying) {
-        // Define o volume aqui também para garantir que comece no volume certo
-        backgroundMusic.volume = 0.4; 
+        backgroundMusic.volume = 0.4; // Define o volume aqui também para garantir que comece no volume certo
         backgroundMusic.play().catch(e => console.log("Autoplay bloqueado na inicialização:", e));
     }
 
+    // Event Listener para o botão de ligar/desligar música
     toggleMusicBtn.addEventListener("click", () => {
         if (backgroundMusic.paused) {
             backgroundMusic.play().then(() => {
@@ -36,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             isMusicPlaying = false;
             toggleMusicBtn.textContent = "🎶 Música: Ligar";
         }
-        localStorage.setItem("isMusicPlaying", isMusicPlaying); 
+        localStorage.setItem("isMusicPlaying", isMusicPlaying); // Salva a preferência
     });
 
     startGameBtn.addEventListener("click", () => {
@@ -47,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Salva o nome do jogador e reinicia a pontuação/fase
         localStorage.setItem("playerName", playerName);
         localStorage.setItem("totalPoints", 0); 
         localStorage.setItem("currentPhase", 1); 
