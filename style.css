@@ -1,429 +1,254 @@
-/* style.css - Estilo Pergaminho Mobile-first com Botão Garantido */
+/* style.css - Estilos Globais de Pergaminho e Enigmático */
 
-/* Importação de fontes */
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Open+Sans:wght@400;700&display=swap');
-
-/* Variáveis para cores */
-:root {
-    --color-paper-light: #fdf5e6; /* Cor de pergaminho claro */
-    --color-paper-dark: #f0e6c8;  /* Cor de pergaminho um pouco mais escuro */
-    --color-text-dark: #4a3e2a;   /* Marrom escuro para o texto */
-    --color-button-primary: #8b4513; /* Marrom sépia para botões principais */
-    --color-button-hover: #a0522d;   /* Marrom sépia mais claro no hover */
-    --color-button-music: #6b8e23;   /* Verde oliva para botão de música */
-    --color-button-music-hover: #556b2f; /* Verde oliva mais escuro */
-    --color-button-option: #d2b48c;  /* Bege areia para opções */
-    --color-button-option-hover: #c3a17e;
-    --color-correct: #3cb371; /* Verde esmeralda */
-    --color-incorrect: #dc143c; /* Vermelho carmesim */
-}
-
-/* Reset básico e fundo principal */
-body, html {
+body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; /* Garante que não haja barras de rolagem */
-    font-family: 'Open Sans', sans-serif;
-    /* REMOVIDO: background: url('/ENIGMATIC_WORLD2/assets/parchment_texture.jpg') repeat; */
-    /* Usaremos uma cor sólida para simular o fundo do pergaminho */
-    background-color: var(--color-paper-dark); 
-    background-size: cover; /* Garante que cubra a área */
+    font-family: 'Times New Roman', serif; /* Fonte clássica */
+    
+    /* Imagem de fundo para o efeito de pergaminho/mapa */
+    background-image: url('https://i.imgur.com/gK2J9iZ.jpg'); /* Exemplo: Pergaminho sutil. Você pode substituir! */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #3b2f21; /* Cor de fallback */
+
+    color: #4b3e2a; /* Cor de texto que simula tinta antiga */
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--color-text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility; /* Melhor renderização de texto */
 }
 
-/* Contêiner principal do aplicativo (simula a tela de um app) */
-.app-container {
-    background-color: var(--color-paper-light); /* Fundo cor de pergaminho */
-    border: 5px solid var(--color-button-primary); /* Borda mais robusta em marrom */
-    border-radius: 15px; /* Bordas arredondadas */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Sombra para dar profundidade de livro/mapa */
-    width: 95%; /* Quase 100% em mobile */
-    max-width: 450px; /* Largura máxima para uma experiência mobile */
-    height: 95vh; /* Ocupa a maior parte da altura */
-    max-height: 800px; /* Altura máxima para mobile */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; /* Esconde o que vazar */
-    position: relative; /* Essencial para o posicionamento do botão */
-    box-sizing: border-box; /* Inclui padding e border no cálculo de width/height */
-}
-
-/* Estilo para o iframe (conteúdo do jogo) */
-#gameFrame {
-    width: 100%;
-    flex-grow: 1; /* Ocupa o espaço disponível */
-    border: none;
-    background-color: transparent; /* Permite que o fundo do .app-container apareça */
-    display: block;
-}
-
-/* --- Estilos para o Botão de Música --- */
-.music-toggle-button {
-    position: absolute; /* Posição absoluta em relação ao .app-container */
-    bottom: 15px; /* Distância do fundo */
-    right: 15px; /* Distância da direita */
-    padding: 10px 18px;
-    background-color: var(--color-button-music); /* Verde oliva */
-    color: white;
-    border: 2px solid var(--color-button-music-hover);
-    border-radius: 25px; /* Forma de pílula */
-    font-size: 0.9em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 100; /* Garante que o botão esteja sempre na frente */
-    text-transform: uppercase;
-}
-
-.music-toggle-button:hover {
-    background-color: var(--color-button-music-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* --- Estilos para a Tela de Início (index.html) - dentro do iframe --- */
-.intro-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: var(--color-paper-light); /* Fundo de pergaminho para a intro */
-    border-radius: 10px; /* Bordas arredondadas para o conteúdo interno */
-}
-
-.header {
-    margin-bottom: 30px;
+.container {
+    background: rgba(245, 245, 220, 0.95); /* Bege claro, quase branco, ligeiramente transparente */
+    padding: 35px 40px;
+    border-radius: 12px;
     text-align: center;
+    width: 95%;
+    max-width: 550px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 2px solid #a08c6a; /* Borda que remete ao pergaminho */
+    box-sizing: border-box;
+
+    /* Animação de fade-in para o container */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInContainer 1s forwards ease-out;
 }
 
-/* REMOVIDO: .globe-icon, já que você não tem a imagem */
-/* .globe-icon {
-    width: 90px;
-    height: 90px;
-    margin-bottom: 20px;
-    filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.3));
-} */
+@keyframes fadeInContainer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-.intro-container h1 {
-    font-family: 'IM Fell DW Pica', serif; /* Fonte de pergaminho para o título */
+h1, h2, h3 {
+    font-family: 'Cinzel Decorative', cursive; /* Fonte enigmática para títulos */
+    color: #6a4a2b; /* Cor mais escura para títulos */
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
     font-size: 2.8em;
-    color: var(--color-button-primary);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-    margin: 0;
-    line-height: 1.2;
+    color: #926e3f; /* Tom mais dourado para o título principal */
 }
 
-.intro-container p {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.05em;
-    color: var(--color-text-dark);
-    margin-bottom: 25px;
-    max-width: 400px;
-    text-align: center;
-    line-height: 1.5;
-}
-
-.input-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    max-width: 300px;
-}
-
-.input-area input {
-    padding: 12px 18px;
-    border: 2px solid var(--color-button-primary); /* Borda marrom */
-    border-radius: 8px;
-    font-size: 1em;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: white;
-    color: var(--color-text-dark);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.input-area input::placeholder {
-    color: #999;
-}
-
-.input-area input:focus {
-    border-color: var(--color-button-music); /* Verde no foco */
-    box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.3);
-    outline: none;
-}
-
-.input-area button, .start-button {
-    padding: 12px 25px;
-    background-color: var(--color-button-primary); /* Marrom sépia */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    text-transform: uppercase;
-}
-
-.input-area button:hover, .start-button:hover {
-    background-color: var(--color-button-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.footer-text {
-    margin-top: 40px;
-    font-size: 0.85em;
-    color: #666;
-}
-
-/* --- Estilos para as Fases de Quiz (faseX.html) - dentro do iframe --- */
-.story-intro-container, .question-area, .final-screen-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    padding: 25px;
-    box-sizing: border-box;
-    background-color: var(--color-paper-light); /* Fundo de pergaminho para o conteúdo */
-    border-radius: 10px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra interna sutil */
-}
-
-.story-intro-container h2, .final-screen-container h2 {
-    font-family: 'IM Fell DW Pica', serif;
+h2 {
     font-size: 2.2em;
-    color: var(--color-button-primary);
-    margin-bottom: 20px;
-    text-align: center;
-    line-height: 1.2;
 }
 
-.story-intro-container p, .final-message {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1em;
-    color: var(--color-text-dark);
-    max-width: 600px;
+h3 {
+    font-size: 1.8em;
+    color: #8c6e4e; /* Cor ligeiramente diferente para o título do enigma */
+}
+
+p {
+    font-size: 1.1em;
     line-height: 1.6;
     margin-bottom: 25px;
-    text-align: center;
+    color: #4b3e2a;
 }
 
-.question-area h3 {
-    font-family: 'IM Fell DW Pica', serif;
-    font-size: 1.5em;
-    color: var(--color-text-dark);
-    margin-bottom: 20px;
-    text-align: center;
+.small-text {
+    font-size: 0.9em;
+    color: #6d6150;
+    margin-top: 20px;
 }
 
-.question-status {
-    font-size: 0.85em;
-    color: #777;
-    margin-bottom: 15px;
-}
-
-.enigma-title {
-    font-family: 'IM Fell DW Pica', serif;
-    font-size: 1.8em;
-    color: var(--color-button-primary);
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-.pergunta-text {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.1em;
-    color: var(--color-text-dark);
+/* --- Input e Botão de Início (Tela Inicial) --- */
+.input-group {
     margin-bottom: 30px;
-    max-width: 700px;
-    text-align: center;
 }
 
-.opcoes-container {
-    display: flex;
-    flex-direction: column; /* Sempre em coluna para mobile */
-    gap: 12px;
+input[type="text"] {
+    width: calc(80% - 30px); /* Ajuste para padding */
+    padding: 12px 15px;
+    margin-bottom: 20px; /* Espaçamento entre input e botão */
+    font-size: 1.1em;
+    border-radius: 8px;
+    border: 1px solid #a08c6a;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #4b3e2a;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+input[type="text"]::placeholder {
+    color: #887a68;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #e0b400;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 8px rgba(224, 180, 0, 0.4);
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #e0b400; /* Amarelo dourado */
+    border: 2px solid #b38e00;
+    color: #4b3e2a;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 5px; /* Para múltiplos botões ou ajuste */
+}
+
+button:hover {
+    background-color: #f0c800;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* --- Classes de Controle de Visibilidade --- */
+.hidden {
+    display: none !important;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* --- Estilos para as Telas de Fase (compartilhados) --- */
+.question-count {
+    font-size: 1.1em;
+    color: #8c6e4e;
+    margin-bottom: 10px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Uma coluna por padrão */
+    gap: 15px; /* Espaçamento entre os botões */
+    margin-top: 30px;
     margin-bottom: 20px;
-    width: 100%;
-    max-width: 350px;
+}
+
+@media (min-width: 500px) {
+    .options-grid {
+        grid-template-columns: 1fr 1fr; /* Duas colunas para telas maiores */
+    }
 }
 
 .option-btn {
-    padding: 15px 20px;
-    background-color: var(--color-button-option); /* Bege areia */
-    color: var(--color-text-dark);
-    border: 1px solid #c2b4a1;
-    border-radius: 10px;
-    font-size: 1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
+    min-height: 50px;
+    font-size: 1.05em;
+    white-space: normal;
     text-align: center;
-}
-
-.option-btn:hover:not(:disabled) {
-    background-color: var(--color-button-option-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.option-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.option-btn.correct-answer {
-    background-color: var(--color-correct); /* Verde esmeralda */
-    color: white;
-    border-color: var(--color-correct);
-}
-
-.option-btn.incorrect-answer {
-    background-color: var(--color-incorrect); /* Vermelho carmesim */
-    color: white;
-    border-color: var(--color-incorrect);
-}
-
-.feedback-text {
-    margin-top: 15px;
-    font-size: 1.1em;
-    font-weight: 700;
-    text-align: center;
-}
-
-.feedback-correct {
-    color: var(--color-correct);
-}
-
-.feedback-incorrect {
-    color: var(--color-incorrect);
 }
 
 .next-button {
-    padding: 12px 25px;
-    background-color: var(--color-button-primary);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    margin-top: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-transform: uppercase;
+    margin-top: 25px;
+    background-color: #6a4a2b; /* Cor mais escura para este botão */
+    color: #fff;
+    border: 2px solid #4b3e2a;
 }
 
 .next-button:hover {
-    background-color: var(--color-button-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background-color: #8c6e4e;
 }
 
-/* --- Estilos para a Tela Final (fase-final.html) --- */
-.final-score {
-    font-size: 1.8em;
-    color: var(--color-button-primary);
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.restart-button {
-    padding: 15px 30px;
-    background-color: var(--color-button-primary);
-    color: white;
-    border: none;
-    border-radius: 10px;
+/* Feedback de resposta */
+.feedback-message {
     font-size: 1.2em;
-    font-weight: 700;
+    font-weight: bold;
+    margin-top: 20px;
+    min-height: 1.5em;
+}
+
+.feedback-correct {
+    color: #4CAF50; /* Verde */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-incorrect {
+    color: #F44336; /* Vermelho */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para destacar a resposta correta/incorreta nos botões */
+.correct-answer {
+    background-color: #79a87d !important;
+    border-color: #4CAF50 !important;
+    color: #fff !important;
+}
+
+.incorrect-answer {
+    background-color: #e57373 !important;
+    border-color: #F44336 !important;
+    color: #fff !important;
+}
+
+/* --- Estilos da Tela Final --- */
+.end-screen h2 {
+    color: #926e3f;
+    margin-bottom: 20px;
+}
+
+.final-score {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #e0b400; /* Dourado */
+    margin-bottom: 30px;
+}
+
+/* Estilos para Controles de Áudio */
+.audio-controls {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.audio-controls button {
+    background-color: #8c6e4e; /* Tom mais escuro de pergaminho */
+    color: #fff;
+    border: 2px solid #6a4a2b;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.restart-button:hover {
-    background-color: var(--color-button-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-/* --- Utilitários --- */
-.hidden {
-    display: none;
-}
-
-/* Media Queries para Responsividade (desktop) */
-@media (min-width: 768px) {
-    .app-container {
-        max-width: 700px;
-        height: 85vh;
-        border-radius: 20px;
-    }
-
-    .intro-container h1 {
-        font-size: 3.5em;
-    }
-
-    .story-intro-container h2, .final-screen-container h2 {
-        font-size: 2.8em;
-    }
-
-    .input-area {
-        flex-direction: row;
-        gap: 20px;
-        max-width: none;
-        width: auto;
-    }
-
-    .input-area input {
-        width: 250px;
-    }
-
-    .input-area button, .start-button {
-        min-width: 180px;
-    }
-
-    .opcoes-container {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        max-width: 600px;
-        gap: 15px;
-    }
-
-    .option-btn {
-        flex: 1 1 calc(50% - 8px);
-        max-width: 280px;
-    }
-
-    /* Posição do botão de música em desktop */
-    .music-toggle-button {
-        bottom: 25px;
-        right: 25px;
-        padding: 12px 20px;
-        font-size: 1em;
-    }
+.audio-controls button:hover {
+    background-color: #a08c6a;
+    transform: translateY(-1px);
 }
